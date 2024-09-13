@@ -1,0 +1,23 @@
+* {
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    background-color: green;
+    font-size: 100px;
+}
+
+h2 {
+    font-size: 60px;
+}
+
+div,
+p,
+li {
+    font-size: 40px;
+}
+
+li {
+    text-align: left;
+}
