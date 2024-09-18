@@ -1,125 +1,147 @@
+// Reset the scores to 0
+function resetGame() {
+    playerScore = 0;
+    const playerScoreContainer = document.querySelector(".player-score");
+    playerScoreContainer.textContent = playerScore;
+    computerScore = 0;
+    const computerScoreContainer = document.querySelector(".computer-score");
+    computerScoreContainer.textContent = computerScore;
 
+    button = document.querySelector("#reset-button");
+    button.classList.toggle("reset");
+    button.textContent = "Next round"
+}
 
 // Write a function that will return the computer's choice: Rock, paper or scissors
 function getComputerChoice() {
     let a = Math.floor(Math.random() * 3);
     switch (a) {
         case 0:
-            return "Rock";
+            return "rock";
         case 1:
-            return "Paper";
+            return "paper";
         case 2:
-            return "Scissors";
+            return "scissors";
         default:
             console.warn("There is an error with the random");
     };
 }
 
-
-// Write a function that gets the players choice
-// I know this sucks, but it works and I'll improve it later
-function getUserChoice() {
-    let user_choice = "NoChoice"
-    while (true) {
-        switch (user_choice.toLowerCase()) {
-            case "rock":
-            case "r":
-                return "Rock";
-            case "paper":
-            case "p":
-                return "Paper";
-            case "scissors":
-            case "s":
-                return "Scissors";
-            default:
-                user_choice = prompt("Please enter the hand you want to play");
-        };
-    };
-}
-
-
 // Write a function that figure out who between the player and the computer wins this round
-function returnWinner(computer_hand, player_hand) {
-    if (computer_hand === player_hand) {
+function returnWinner(computerHand, playerHand) {
+    if (computerHand === playerHand) {
         return "Draw";
-    } else if (player_hand === "Rock" && computer_hand === "Paper") {
+    } else if (playerHand === "rock" && computerHand === "paper") {
         return "Computer";
-    } else if (player_hand === "Rock" && computer_hand === "Scissors") {
+    } else if (playerHand === "rock" && computerHand === "scissors") {
         return "Player";
-    } else if (player_hand === "Paper" && computer_hand === "Rock") {
+    } else if (playerHand === "paper" && computerHand === "rock") {
         return "Player";
-    } else if (player_hand === "Paper" && computer_hand === "Scissors") {
+    } else if (playerHand === "paper" && computerHand === "scissors") {
         return "Computer";
-    } else if (player_hand === "Scissors" && computer_hand === "Rock") {
+    } else if (playerHand === "scissors" && computerHand === "rock") {
         return "Computer";
-    } else if (player_hand === "Scissors" && computer_hand === "Paper") {
+    } else if (playerHand === "scissors" && computerHand === "paper") {
         return "Player";
     };
 }
 
-
-// Write the logic for a single round
-function playRound() {
-    let computer_hand = getComputerChoice();
-    let player_hand = getUserChoice();
-    switch (returnWinner(computer_hand, player_hand)) {
+// Logic for a single round played
+function playRound(playerHand) {
+    const computerHand = getComputerChoice();
+    setComputerChoice(computerHand)
+    switch (returnWinner(computerHand, playerHand)) {
         case "Draw":
-            console.log(`You both played ${player_hand}, it's a draw!`);
-            return "Draw";
+            setRoundResultMessage(playerHand, computerHand, "it's a draw!");
+            break;
         case "Player":
-            console.log(`You played ${player_hand} and the computer player ${computer_hand}, you won!`);
-            return "Player";
+            addPoint(".player-score");
+            setRoundResultMessage(playerHand, computerHand, "you won!");
+            break;
         case "Computer":
-            console.log(`You played ${player_hand} and the computer player ${computer_hand}, you lost!`);
-            return "Computer";
+            addPoint(".computer-score");
+            setRoundResultMessage(playerHand, computerHand, "you lost!");
+            break;
     }
+    checkGame();
 }
 
-
-// Write the logic for multiple rounds
-function bestOf(number_of_rounds) {
-    let playerScore = 0
-    let computerScore = 0
-    while (playerScore < number_of_rounds && computerScore < number_of_rounds) {
-        let result = playRound()
-        if (result === "Player") {
-            playerScore++
-        } else if (result === "Computer")
-            computerScore++
-        console.log(`Player ${playerScore} - ${computerScore} Computer`)
-    }
-    if (playerScore === number_of_rounds) {
-        console.log(`You won the best of ${number_of_rounds}! Congratulations!`)
-    } else {
-        console.log(`You lost the best of ${number_of_rounds}, too bad!`)
-    }
+function addPoint(selector) {
+    const scoreContainer = document.querySelector(selector);
+    scoreContainer.textContent = +scoreContainer.textContent + 1;
 }
 
+function setRoundResultMessage(playerHand, computerHand, result) {
+    const resultContainer = document.querySelector(".message");
+    resultContainer.textContent = `You played ${playerHand}, the computer played ${computerHand}, ${result}`;
+}
 
-
-
-// Function I wrote to make sure the one that I defined for the computer choice was truly random
-function testRandomnessOfComputerChoice() {
-    let r = 0;
-    let p = 0;
-    let s = 0;
-
-    for (let i=0; i < 300000; i++) {
-        switch (returnComputerChoice()) {
-            case "Rock":
-                r++;
-                break;
-            case "Paper":
-                p++;
-                break;
-            case "Scissors":
-                s++;
-                break;
+function setComputerChoice(choice) {
+    const computerChoice = document.querySelectorAll(".computer img")
+    for (let i = 0; i < computerChoice.length; i++) {
+        if (computerChoice[i].classList.value === choice) {
+            computerChoice[i].classList.toggle("played")
         }
     }
-
-    console.log(`There were ${r} rocks`)
-    console.log(`There were ${p} papers`)
-    console.log(`There were ${s} scissors`)
 }
 
+function setNextRound() {
+    const computerImages = document.querySelector(".computer img.played")
+    const playerImages = document.querySelector(".player img.played");
+    computerImages.classList.toggle("played")
+    playerImages.classList.toggle("played")
+    const resultContainer = document.querySelector(".message");
+    resultContainer.textContent = ""
+}
+
+function checkGame() {
+    const playerScore = document.querySelector(".player-score").textContent;
+    const computerScore = document.querySelector(".computer-score").textContent
+    const resetButton = document.querySelector("#reset-button")
+    if (+playerScore >= 3) {
+        alert(`Congratulations!!! You won the game ${playerScore} - ${computerScore}`);
+        resetButton.textContent = "Reset the game"
+        resetButton.classList.toggle("reset")
+    } else if (+computerScore >= 3) {
+        alert(`Aouch!!! You lost the game to a computer ${playerScore} - ${computerScore}`);
+        resetButton.textContent = "Reset the game"
+        resetButton.classList.toggle("reset")
+    }
+    toggleResetButton()
+    toggleChoiceBlock()
+}
+
+function toggleResetButton() {
+    resetButton.classList.toggle("next-round")
+}
+
+
+function toggleChoiceBlock() {
+    const playerImages = document.querySelectorAll(".player img")
+    for (let i = 0; i < playerImages.length; i++) {
+        playerChoice[i].classList.toggle("block");
+    }
+}
+
+
+
+const playerChoice = document.querySelectorAll(".player img");
+for (let i = 0; i < playerChoice.length; i++) {
+    playerChoice[i].addEventListener("click", function() {
+        const playerHand = event.currentTarget.getAttribute("class");
+        if (!playerHand.includes("block")) {
+            playRound(playerHand.split(" ")[0]); // playRound(playerHand)
+            playerChoice[i].classList.toggle("played");
+        }
+    })
+}
+
+const resetButton = document.querySelector("#reset-button");
+resetButton.addEventListener("click", function() {
+    if (resetButton.classList.value.includes("reset")) {
+        resetGame()
+    }
+    setNextRound()
+    toggleResetButton()
+    toggleChoiceBlock()
+});
