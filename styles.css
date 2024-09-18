@@ -1,0 +1,71 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    padding: 0px 100px;
+    background-color: red;
+}
+
+
+.title {
+    height: 100px;
+    text-align: center;
+    color: gold;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.grid {
+    width: 960px;
+    height: 960px;
+    background-color: white;
+    display: flex;
+}
+
+.box-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.box {
+    flex: 1;
+    border-width: 1px;
+    border-color: lightslategray;
+    border-style: dotted;
+    background-color: lightgray;
+}
+
+.box.coloured-black {
+    background-color: black;
+}
+
+.box.coloured-blue {
+    background-color: blue;
+}
+
+.box.coloured-red {
+    background-color: red;
+}
+
+.box.coloured-yellow {
+    background-color: yellow;
+}
+
+.box.coloured-white {
+    background-color: white;
+}
+
+
+.options {
+    height: 100px;
+}
+
