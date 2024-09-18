@@ -5,8 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="javascript.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+    <div class="game-screen">
+        <h1 class="game-title">Rock, paper, scissors</h1>
+        <div class="choices-container">
+            <div class="choices">
+                <div class="score">
+                    <div>Player</div>
+                    <div class="player-score">Score</div>
+                </div>
+                <div class="picks">
+                    <img src="img/rock.png">
+                    <img src="img/paper.png">
+                    <img src="img/scissors.png">
+                </div>
+            </div>
+            <div class="choices">
+                <div class="score">
+                    <div class="computer-score">Score</div>
+                    <div>Computer</div>
+                </div>
+                <div class="picks">
+                    <img src="img/rock.png">
+                    <img src="img/paper.png">
+                    <img src="img/scissors.png">
+                </div>
+            </div>
+        </div>
+        <div class="message">Message round or game won</div>
+        <button class="next-reset">Next round or reset</button>
+    </div>
 </body>
 </html>

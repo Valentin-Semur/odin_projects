@@ -1,0 +1,81 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-screen {
+    min-width: 600px;
+    min-height: 400px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-color: #023047;
+    border-style: solid;
+    margin: 0px 200px;
+    background-color: #023047;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.game-title {
+    margin: 0;
+    text-align: center;
+    padding: 10px 0px;
+    color: white;
+}
+
+.choices-container {
+    flex: 6;
+    display: flex;
+    justify-content: space-around;
+}
+
+.choices {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 10px;
+    border-radius: 5px;
+    background-color: #8ecae6;
+}
+
+.score {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.picks {
+    flex: 5;
+    display: flex;
+    padding: 20px 10px;
+    gap: 20px;
+}
+
+img {
+    min-width: 60px;
+    max-width: 100%;
+}
+
+.message {
+    flex: 2;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: #8ecae6;
+    border-radius: 5px;
+}
+
+.next-reset {
+    flex: 1;
+    border-radius: 5px;
+    background-color: #8ecae6;
+    border-width: 0;
+}

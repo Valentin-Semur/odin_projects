@@ -95,8 +95,6 @@ function bestOf(number_of_rounds) {
     }
 }
 
-// Start a best of 3
-bestOf(3)
 
 
 
@@ -124,3 +122,4 @@ function testRandomnessOfComputerChoice() {
     console.log(`There were ${p} papers`)
     console.log(`There were ${s} scissors`)
 }
+
