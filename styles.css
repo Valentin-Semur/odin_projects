@@ -1,4 +1,9 @@
 
+@font-face {
+    font-family: "Digital";
+    src: url('font/digital.ttf') format('truetype');
+}
+
 html, body {
     margin: 0;
     height: 100%;
@@ -11,26 +16,53 @@ body {
 }
 
 #container {
-    border-color: black;
-    border-style: solid;
-}
-
-
-#container {
     display: flex;
     flex-wrap: wrap;
     height: 600px;
     width: 400px;
+    color: #003049;
+    border-color: #003049;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 5px;
+    background-color: #eae2b7;
 }
 
 #results {
-    width: 400px
+    width: 400px;
+    text-align: right;
+    margin: auto 10px;
+    font-size: 40px;
+    font-family: 'Digital';
 }
 
 button {
-    width: 100px;
+    width: 98px;
+    font-size: 25px;
+    margin: 1px;
+    border-radius: 5px;
+}
+
+button:hover {
+    filter: brightness(85%)
+}
+
+button:active {
+    filter: brightness(100%)
+}
+
+.yellow {
+    background-color: #fcbf49;
+}
+
+.orange {
+    background-color: #f77f00;
+}
+
+.red {
+    background-color: #d62828;  
 }
 
 #key0 {
-    width: 200px;
+    width: 198px;
 }
