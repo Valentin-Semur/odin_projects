@@ -7,6 +7,7 @@
 html, body {
     margin: 0;
     height: 100%;
+    background-color: #fbf9f1;
 }
 
 body {
@@ -23,17 +24,20 @@ body {
     color: #003049;
     border-color: #003049;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 15px;
     border-width: 5px;
-    background-color: #eae2b7;
+    background-color: #003049;
+    padding: 20px;
 }
 
 #results {
     width: 400px;
     text-align: right;
     margin: auto 10px;
+    padding: 20px 10px;
     font-size: 40px;
     font-family: 'Digital';
+    background-color: #eae2b7;
 }
 
 button {
@@ -48,7 +52,7 @@ button:hover {
 }
 
 button:active {
-    filter: brightness(100%)
+    filter: brightness(95%)
 }
 
 .yellow {
