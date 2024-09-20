@@ -49,25 +49,35 @@ function setResult() {
     operator = undefined;
 }
 
-function addNumber(e) {
-    if (e.currentTarget.textContent == "." && display.textContent.includes(".")) {
+// Added this function to be able to call the addNumber from a keyboard event
+function eventAddNumber(e) {
+    addNumber(e.currentTarget.textContent)
+}
+
+function addNumber(num) {
+    if (num == "." && display.textContent.includes(".")) {
         return;
     }
     if (operator === undefined) {
-        firstNumber += e.currentTarget.textContent;
+        firstNumber += num;
         updateDisplay(firstNumber);
     } else {
-        secondNumber += e.currentTarget.textContent;
+        secondNumber += num;
         updateDisplay(secondNumber);
     }
 }
 
-function addOperator(e) {
+// Added this function to be able to call the addOperator from a keyboard event
+function eventAddOperator(e) {
+    addOperator(e.currentTarget.textContent)
+}
+
+function addOperator(ope) {
     if (operator === undefined) {
-        operator = e.currentTarget.textContent;
+        operator = ope;
     } else {
         setResult();
-        operator = e.currentTarget.textContent;
+        operator = ope;
     }
 }
 
@@ -85,7 +95,7 @@ function resetCalculator() {
 // Create the event listeners
 const numberButtons = document.querySelectorAll(".number, #key-dot");
 for (let i = 0; i < numberButtons.length; i++) {
-    numberButtons[i].addEventListener("click", addNumber);
+    numberButtons[i].addEventListener("click", eventAddNumber);
 }
 
 const ac = document.querySelector("#keyAC");
@@ -93,8 +103,23 @@ ac.addEventListener("click", resetCalculator);
 
 const operatorButtons = document.querySelectorAll(".operator");
 for (let i = 0; i < operatorButtons.length; i++) {
-    operatorButtons[i].addEventListener("click", addOperator);
+    operatorButtons[i].addEventListener("click", eventAddOperator);
 }
 
 const equalButton = document.querySelector("#key-equal");
 equalButton.addEventListener("click", setResult);
+
+
+document.addEventListener("keydown", addFromKey)
+
+function addFromKey(e) {
+    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const operators = ["/", "*", "-", "+"]
+    if (numbers.includes(parseInt(e.key))) {
+        addNumber(e.key)
+    } else if (operators.includes(e.key)) {
+        addOperator(e.key)       
+    } else if (e.key === "=" || e.key === "Enter") {
+        setResult()        
+    }
+}
