@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template: 1fr 6fr 20px / 300px 1fr;
+    grid-template-areas: 
+        "sidebar header"
+        "sidebar main"
+        "footer footer";
+
+}
+
+.header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+
+
+
+    background-color: lightskyblue; /* To change */
+}
+
+.main {
+    grid-area: main;
+
+    background-color: lightgrey; /* To change */
+}
+
+.footer {
+    grid-area: footer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Saw them while reading tutorial and wanter to have a bit of fun */
+@media only screen and (max-width: 800px) {
+    body {
+        grid-template-areas: 
+            "header header"
+            "main main"
+            "footer footer";
+    }
+
+    .sidebar {
+        display: none;
+    }
+  }
