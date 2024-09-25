@@ -18,27 +18,27 @@
         </div>
     </div>
     <div class="right-side">
-        <div class="top">
-            <p>Hey! I see you watching these sequoias! If you want more sequoia pictures <em>(and some other trees as well)</em> sign-up now!</p> 
-            <p>You <em>know</em> you want to.</p>
-        </div>
-        <div class="form-container">
-            <h3>Fill in those fields to register</h3>
-            <form>
+        <form>
+            <div class="top">
+                <p>Hey! I see you watching these sequoias! If you want more sequoia pictures <em>(and some other trees as well)</em> sign-up now!</p> 
+                <p>You <em>know</em> you want to.</p>
+            </div>
+            <div class="form-container">
+                <h3>Fill in those fields to register</h3>
                 <div class="form-row">
                     <div>
                         <label for="fname">FIRST NAME</label>
-                        <input type="text" name="fname">
+                        <input type="text" name="fname" required>
                     </div>
                     <div>
                         <label for="lname">LAST NAME</label>
-                        <input type="text" name="lname">
+                        <input type="text" name="lname" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div>
                         <label for="email">EMAIL</label>
-                        <input type="email" name="email">
+                        <input type="email" name="email" required>
                     </div>
                     <div>
                         <label for="phone">PHONE NUMBER</label>
@@ -48,19 +48,19 @@
                 <div class="form-row">
                     <div>
                         <label for="password">PASSWORD</label>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required>
                     </div>
                     <div>
                         <label for="password-confirm">CONFIRM PASSWORD</label>
-                        <input type="password" name="password-confirm">
+                        <input type="password" name="password-confirm" required>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="bottom">
-            <button>Create Account</button>
-            <p>Already have an account? <a href="">Log in</a></p>
-        </div>
+            </div>
+            <div class="bottom">
+                <button type="submit">Create Account</button>
+                <p>Already have an account? <a href="">Log in</a></p>
+            </div>
+        </form>
     </div>
 
 </body>
