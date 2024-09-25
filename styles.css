@@ -36,14 +36,6 @@ body {
         "footer footer";
 }
 
-img {
-    border-radius: 50%;
-    border-color: var(--dark-green);
-    border-width: 3px;
-    border-style: solid;
-}
-
-
 /* HEADER */
 .header {
     grid-area: header;
@@ -60,6 +52,13 @@ img {
     align-items: center;
     margin: 10px 40px;
     gap: 30px;
+}
+
+.header img {
+    border-radius: 50%;
+    border-color: var(--dark-green);
+    border-width: 3px;
+    border-style: solid;
 }
 
 .top img {
@@ -143,8 +142,55 @@ img {
 /* MAIN */
 .main {
     grid-area: main;
-
+    display: grid;
+    grid-template: 50px 1fr 50px 1fr/ 3fr minmax(200px, 1fr);
+    grid-template-areas: 
+        "recipes-title announcements-title"
+        "recipes announcement"
+        "recipes trending-title"
+        "recipes trending";
     background-color: var(--light-green);
+}
+
+.recipes-title {
+    grid-area: recipes-title;
+}
+
+.recipes {
+    grid-area: recipes;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(2, 1fr); /* Change to auto */
+
+    gap: 20px;
+    padding: 20px;
+}
+
+.recipe {
+    display: grid;
+    grid-template: 20px 1fr / repeat(2, 1fr);
+
+    background-color: var(--white);
+}
+
+.recipe img {
+    width: 100%;
+}
+
+
+.annoucements-title {
+    grid-area: annoucements-title;
+}
+
+.announcements {
+    grid-area: announcements;
+}
+
+.trending-title {
+    grid-area: trending-title;
+}
+
+.trending {
+    grid-area: trending;
 }
 
 
