@@ -1,0 +1,77 @@
+
+@font-face {
+    font-family: "Digital";
+    src: url('font/digital.ttf') format('truetype');
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: #fbf9f1;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 600px;
+    width: 400px;
+    color: #003049;
+    border-color: #003049;
+    border-style: solid;
+    border-radius: 15px;
+    border-width: 5px;
+    background-color: #003049;
+    padding: 20px;
+}
+
+#results {
+    width: 400px;
+    text-align: right;
+    margin: auto 10px;
+    padding: 20px 10px;
+    font-size: 40px;
+    font-family: 'Digital';
+    background-color: #eae2b7;
+}
+
+button {
+    width: 98px;
+    font-size: 25px;
+    margin: 1px;
+    border-radius: 5px;
+}
+
+button:hover {
+    filter: brightness(85%)
+}
+
+button:active {
+    filter: brightness(95%)
+}
+
+.yellow {
+    background-color: #fcbf49;
+}
+
+.orange {
+    background-color: #f77f00;
+}
+
+.red {
+    background-color: #d62828;  
+}
+
+#key0 {
+    width: 198px;
+}
+
+#keyAC {
+    width: 298px;
+}
+
