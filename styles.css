@@ -34,6 +34,7 @@ body {
         "sidebar header"
         "sidebar main"
         "footer footer";
+    color: var(--black);
 }
 
 /* HEADER */
@@ -56,7 +57,7 @@ body {
 
 .header img {
     border-radius: 50%;
-    border-color: var(--dark-green);
+    border-color: var(--orange);
     border-width: 3px;
     border-style: solid;
 }
@@ -146,10 +147,15 @@ body {
     grid-template: 50px 1fr 50px 1fr/ 3fr minmax(200px, 1fr);
     grid-template-areas: 
         "recipes-title announcements-title"
-        "recipes announcement"
+        "recipes announcements"
         "recipes trending-title"
         "recipes trending";
     background-color: var(--light-green);
+}
+
+.main .title {
+    align-self: center;
+    padding: 20px 0px 0px 30px;
 }
 
 .recipes-title {
@@ -159,7 +165,7 @@ body {
 .recipes {
     grid-area: recipes;
     display: grid;
-    grid-template: repeat(3, 1fr) / repeat(2, 1fr); /* Change to auto */
+    grid-template: repeat(3, 1fr) / repeat(auto-fit, minmax(350px, 1fr));
 
     gap: 20px;
     padding: 20px;
@@ -167,22 +173,64 @@ body {
 
 .recipe {
     display: grid;
-    grid-template: 20px 1fr / repeat(2, 1fr);
+    grid-template: 70px 1fr / 2fr 2fr 20px;
+    grid-template-areas: 
+        "title title heart"
+        "description image image";
+    padding: 20px;
+    gap: 10px;
 
     background-color: var(--white);
+    border-radius: 10px;
+    border-color: var(--white);
+    border-left-color: var(--orange);
+    border-width: 10px;
+    border-style: solid;
+
+    box-shadow: 2px 2px 5px 0.1px var(--black);
+}
+
+.recipe h3 {
+    grid-area: title;
+    font-weight: bold;
+}
+
+.recipe svg {
+    grid-area: heart;
+}
+
+.recipe p {
+    grid-area: description;
+    margin-top: 10px;
 }
 
 .recipe img {
     width: 100%;
+    grid-area: image;
+    box-shadow: 1px 1px 5px 0.1px var(--black);
 }
 
+.announcements-title {
+    grid-area: announcements-title;
+}
 
-.annoucements-title {
-    grid-area: annoucements-title;
+.card {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 0.1px var(--black);
+    margin: 20px;
 }
 
 .announcements {
     grid-area: announcements;
+    display: grid;
+    grid-template-rows: 1fr 2px 1fr 2px 1fr;
+    padding: 30px;
+    gap: 20px;
+}
+
+.separator {
+    background-color: var(--dark-green);
 }
 
 .trending-title {
@@ -192,8 +240,6 @@ body {
 .trending {
     grid-area: trending;
 }
-
-
 
 
 /* FOOTER */
@@ -214,18 +260,8 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
 /* Saw them while reading tutorial and wanted to have a bit of fun */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1350px) {
     body {
         grid-template-areas: 
             "header header"
@@ -236,4 +272,18 @@ body {
     .sidebar {
         display: none;
     }
-  }
+}
+
+@media only screen and (max-width: 1050px) {
+    .main {
+        grid-template-areas: 
+            "recipes-title ."
+            "recipes recipes"
+            "recipes recipes"
+            "recipes recipes";
+    }
+
+    .disposable {
+        display: none;
+    }
+}
