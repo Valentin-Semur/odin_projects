@@ -10,13 +10,35 @@ function Book(title, author, pages, read) {
     };
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book)
+function addBookToLibrary(title, author, pages, read) {
+    const newBook = new Book(title, author, pages, read);
+    myLibrary.push(newBook);
 }
 
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
+addBookToLibrary('The new Hobbit', 'newTolkien', 789, 'yep')
 
-addBookToLibrary(theHobbit)
+const bookList = JSON.parse(books);
+console.log(bookList)
 
-console.log(myLibrary)
-console.log(theHobbit)
+function displayLibrary() {
+    const bookContainer = document.querySelector(".book-container");
+    for (book of myLibrary) {
+        const bookCard = document.createElement("div");
+        const bookTitle = document.createElement("div");
+        const bookAuthor = document.createElement("div");
+        const bookPages = document.createElement("div");
+        const bookRead = document.createElement("div");
+        bookTitle.textContent = book.title;
+        bookCard.appendChild(bookTitle);
+        bookAuthor.textContent = book.author;
+        bookCard.appendChild(bookAuthor);
+        bookPages.textContent = book.pages;
+        bookCard.appendChild(bookPages);
+        bookRead.textContent = book.read;
+        bookCard.appendChild(bookRead);
+        bookContainer.appendChild(bookCard)
+    }
+}
+
+
+displayLibrary()
