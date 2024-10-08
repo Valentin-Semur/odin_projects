@@ -10,33 +10,31 @@
 <body>
     <div class="book-container"></div>
 
-    <button class="add-book">Add book</button>
+    <button id="showDialog">Add book</button>
 
-    <div id="centerpoint">
-        <dialog open>
-            <form>
-                <div>
-                    <label for="title">Book title</label>
-                    <input type="text" name="title">
-                </div>
-                <div>
-                    <label for="author">Author</label>
-                    <input type="text" name="author">
-                </div>
-                <div>
-                    <label for="pages">Number of pages</label>
-                    <input type="text" name="pages">
-                </div>
-                <div>
-                    <label for="read">Book read</label>
-                    <input type="checkbox" name="read">
-                </div>
-                <div>
-                    <button class="cancel">Cancel</button>
-                    <button class="submit">Submit</button>
-                </div>
-            </form>
-        </dialog>
-    </div>
+    <dialog>
+        <form action="" method="get">
+            <div class="input">
+                <label for="title">Book title</label>
+                <input type="text" name="title">
+            </div>
+            <div class="input">
+                <label for="author">Author</label>
+                <input type="text" name="author">
+            </div>
+            <div class="input">
+                <label for="pages">Number of pages</label>
+                <input type="text" name="pages">
+            </div>
+            <div>
+                <label for="read">Book read</label>
+                <input type="checkbox" name="read">
+            </div>
+            <div class="buttons">
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirmBtn" type="submit">Submit</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

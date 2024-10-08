@@ -91,9 +91,24 @@ function displayLibrary(library) {
 addListOfBooksToLibrary(myLibrary, bookDump);
 displayLibrary(myLibrary);
 
-const addBookButton = document.querySelector(".add-book");
+const addBookButton = document.querySelector("#showDialog");
 const dialog = document.querySelector("dialog");
 addBookButton.addEventListener("click", () => {
     dialog.showModal();
 });
 
+function getData(form) {
+    const formData = new FormData(form);
+    const bookToAdd = Object.fromEntries(formData);
+    addBookToLibrary(myLibrary, bookToAdd.title, bookToAdd.author, bookToAdd.pages, bookToAdd.read)
+    displayLibrary(myLibrary);
+  }
+  
+
+function printFormValues(e) {
+    e.preventDefault();
+    getData(e.target);
+    dialog.close();
+}
+
+document.querySelector("form").addEventListener("submit", printFormValues)
