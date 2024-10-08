@@ -8,25 +8,35 @@
     <title>Library</title>
 </head>
 <body>
-    <div class="book-container">
-        <div class="book-card">
-            <div class="title">The Hobbit</div>
-            <div class="author">JRR Tolkien</div>
-            <div class="pages">197</div>
-            <div class="read">nope</div>
-        </div>
-        <div class="book-card">
-            <div class="title">Harry Potter</div>
-            <div class="author">JK Rowling</div>
-            <div class="pages">178</div>
-            <div class="read">yep</div>
-        </div>
-        <div class="book-card">
-            <div class="title">The First Law</div>
-            <div class="author">Joe Abercrombie</div>
-            <div class="pages">876</div>
-            <div class="read">yep</div>
-        </div>
+    <div class="book-container"></div>
+
+    <button class="add-book">Add book</button>
+
+    <div id="centerpoint">
+        <dialog open>
+            <form>
+                <div>
+                    <label for="title">Book title</label>
+                    <input type="text" name="title">
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <input type="text" name="author">
+                </div>
+                <div>
+                    <label for="pages">Number of pages</label>
+                    <input type="text" name="pages">
+                </div>
+                <div>
+                    <label for="read">Book read</label>
+                    <input type="checkbox" name="read">
+                </div>
+                <div>
+                    <button class="cancel">Cancel</button>
+                    <button class="submit">Submit</button>
+                </div>
+            </form>
+        </dialog>
     </div>
 </body>
 </html>
