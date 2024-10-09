@@ -68,11 +68,27 @@ function displayLibrary(library) {
         const bookCard = document.createElement("div");
         bookCard.classList.add("book-card");
 
+        // Add a book id for each card
+        const bookNumber = library.indexOf(book);
+        bookCard.id = `book-${bookNumber}`;
+
+        // Add the close button
+        const closeButton = document.createElement("svg");
+        const svgPath = document.createElement("path");
+        svgPath.setAttribute("d", "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z");
+        svgPath.setAttribute("fill", "pink");
+        closeButton.appendChild(svgPath);
+        closeButton.setAttribute("viewBox", "0 -960 960 960");
+        closeButton.setAttribute("height", "24px");
+        closeButton.setAttribute("width", "24px");
+        closeButton.setAttribute("fill", "pink");
+        bookCard.appendChild(closeButton)
+
         // Create an array of book properties
         const bookProperties = [
             { label: 'book-title', value: book.title},
-            { label: 'book-author', value: book.author},
-            { label: 'book-pages', value: book.pages},
+            { label: 'book-author', value: `Author: ${book.author}`},
+            { label: 'book-pages', value: `Lenght: ${book.pages} pages`},
             { label: 'book-read', value: book.read}
         ];
 

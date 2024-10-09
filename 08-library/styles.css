@@ -23,7 +23,17 @@ body {
     display: flex;
     flex-direction: column;
     background-color: whitesmoke;
+    position: relative;
+    overflow: visible;
 }
+
+.book-card svg {  /* Style the SVG (close button) */
+    position: absolute;
+    top: 10px;  /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    cursor: pointer; /* Add a pointer cursor */
+}
+
 
 .book-title {
     font-weight: bold;
