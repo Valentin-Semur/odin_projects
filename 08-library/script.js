@@ -57,7 +57,7 @@ function addBookToLibrary(library, title, author, pages, read) {
 function addListOfBooksToLibrary(library, bookList) {
     for (book of bookList) {
         addBookToLibrary(library, book.title, book.author, book.pages, book.read)
-    }
+    };
 }
 
 function displayLibrary(library) {
@@ -98,15 +98,46 @@ function displayLibrary(library) {
 
         bookContainer.appendChild(bookCard);
     });
+
+    deleteCrosses = document.querySelectorAll("svg")
+    deleteCrosses.forEach(deleteCross => {
+        deleteCross.addEventListener("click", removeBookCardFromDisplay);
+    })
 }
 
+function removeBookCardFromDisplay(e) {
+    const bookNumber = e.target.parentElement.id;
+    const bookIndex = bookNumber.substring(bookNumber.indexOf("-") + 1);
+    removeBookFromLibrary(bookIndex);
+    displayLibrary(myLibrary);
+}
+
+function removeBookFromLibrary(bookIndex) {
+    myLibrary.splice(bookIndex, 1);
+}
+
+function addFormBookToLibrary(form) {
+    const formData = new FormData(form);
+    const bookToAdd = Object.fromEntries(formData);
+    addBookToLibrary(myLibrary, bookToAdd.title, bookToAdd.author, bookToAdd.pages, bookToAdd.read)
+  }
+  
+function addFormBookToDisplay(e) {
+    e.preventDefault();
+    addFormBookToLibrary(e.target);
+    displayLibrary(myLibrary);
+    dialog.close();
+}
+
+function cancelBookCreation() {
+    dialog.close();
+}
+
+// Add first books on pages loading
 document.addEventListener("DOMContentLoaded", () => {
     addListOfBooksToLibrary(myLibrary, bookDump);
     displayLibrary(myLibrary);
 })
-
-
-
 
 const addBookButton = document.querySelector("#showDialog");
 const dialog = document.querySelector("dialog");
@@ -114,18 +145,5 @@ addBookButton.addEventListener("click", () => {
     dialog.showModal();
 });
 
-function getData(form) {
-    const formData = new FormData(form);
-    const bookToAdd = Object.fromEntries(formData);
-    addBookToLibrary(myLibrary, bookToAdd.title, bookToAdd.author, bookToAdd.pages, bookToAdd.read)
-    displayLibrary(myLibrary);
-  }
-  
-
-function printFormValues(e) {
-    e.preventDefault();
-    getData(e.target);
-    dialog.close();
-}
-
-document.querySelector("form").addEventListener("submit", printFormValues)
+document.querySelector("form").addEventListener("submit", addFormBookToDisplay);
+document.querySelector("form").addEventListener("reset", cancelBookCreation);

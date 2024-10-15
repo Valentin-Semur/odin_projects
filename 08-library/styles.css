@@ -43,6 +43,10 @@ body {
     fill: black;
 }
 
+.book-card svg path {
+    pointer-events: none;
+}
+
 .book-title {
     font-weight: bold;
     grid-area: title;
