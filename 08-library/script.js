@@ -73,15 +73,11 @@ function displayLibrary(library) {
         bookCard.id = `book-${bookNumber}`;
 
         // Add the close button
-        const closeButton = document.createElement("svg");
-        const svgPath = document.createElement("path");
+        const closeButton = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const svgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         svgPath.setAttribute("d", "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z");
-        svgPath.setAttribute("fill", "pink");
         closeButton.appendChild(svgPath);
         closeButton.setAttribute("viewBox", "0 -960 960 960");
-        closeButton.setAttribute("height", "24px");
-        closeButton.setAttribute("width", "24px");
-        closeButton.setAttribute("fill", "pink");
         bookCard.appendChild(closeButton)
 
         // Create an array of book properties
@@ -104,8 +100,13 @@ function displayLibrary(library) {
     });
 }
 
-addListOfBooksToLibrary(myLibrary, bookDump);
-displayLibrary(myLibrary);
+document.addEventListener("DOMContentLoaded", () => {
+    addListOfBooksToLibrary(myLibrary, bookDump);
+    displayLibrary(myLibrary);
+})
+
+
+
 
 const addBookButton = document.querySelector("#showDialog");
 const dialog = document.querySelector("dialog");

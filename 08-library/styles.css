@@ -20,25 +20,44 @@ body {
 }
 
 .book-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template: repeat(4, 1fr) / 1fr 24px;
+    grid-template-areas:
+        "title close"
+        "author ."
+        "pages ."
+        "read ."
+    ;
     background-color: whitesmoke;
     position: relative;
     overflow: visible;
 }
 
-.book-card svg {  /* Style the SVG (close button) */
-    position: absolute;
-    top: 10px;  /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    cursor: pointer; /* Add a pointer cursor */
+.book-card > div {
+    padding: 2px;
 }
 
+.book-card svg {
+    cursor: pointer; /* Add a pointer cursor */
+    grid-area: close;
+    fill: black;
+}
 
 .book-title {
     font-weight: bold;
-    align-self: center;
-    margin: 5px;
+    grid-area: title;
+}
+
+.book-author {
+    grid-area: author;
+}
+
+.book-pages {
+    grid-area: pages;
+}
+
+.book-read {
+    grid-area: read;
 }
 
 button {
