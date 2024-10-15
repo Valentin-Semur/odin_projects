@@ -2,40 +2,40 @@ const myLibrary = []
 
 const bookDump = [
     {
-      "author": "Chinua Achebe",
-      "pages": 209,
-      "title": "Things Fall Apart",
+      "author": "Joe Abercrombie",
+      "pages": 515,
+      "title": "The Blade Itself",
       "read": "on"
     },
     {
-      "author": "Hans Christian Andersen",
-      "pages": 784,
-      "title": "Fairy tales",
+      "author": "Isaac Asimov",
+      "pages": 256,
+      "title": "Fondation",
       "read": ""
     },
     {
-      "author": "Dante Alighieri",
-      "pages": 928,
-      "title": "The Divine Comedy",
-      "read": ""
-    },
-    {
-      "author": "Unknown",
-      "pages": 160,
-      "title": "The Epic Of Gilgamesh",
+      "author": "George Orwell",
+      "pages": 376,
+      "title": "1984",
       "read": "on"
     },
     {
-      "author": "Unknown",
-      "pages": 176,
-      "title": "The Book Of Job",
+      "author": "Terry Pratchet",
+      "pages": 228,
+      "title": "The Colour of Magic",
       "read": "on"
     },
     {
-      "author": "Unknown",
-      "pages": 288,
-      "title": "One Thousand and One Nights",
+      "author": "Steven Erikson",
+      "pages": 712,
+      "title": "Gardens of the Moon",
       "read": ""
+    },
+    {
+      "author": "Frank Herbert",
+      "pages": 658,
+      "title": "Dune",
+      "read": "on"
     }
 ]
 
@@ -129,8 +129,8 @@ function changeReadStatus() {
     }
 }
 
-function removeBookCardFromDisplay(e) {
-    const bookID = e.target.parentElement.id;
+function removeBookCardFromDisplay() {
+    const bookID = this.parentElement.id;
     removeBookFromLibrary(bookID);
     displayLibrary(myLibrary);
 }
@@ -147,7 +147,8 @@ function addFormBookToLibrary(form) {
   
 function addFormBookToDisplay(e) {
     e.preventDefault();
-    addFormBookToLibrary(e.target);
+    addFormBookToLibrary(this);
+    this.reset();
     displayLibrary(myLibrary);
     dialog.close();
 }
@@ -170,12 +171,3 @@ addBookButton.addEventListener("click", () => {
 
 document.querySelector("form").addEventListener("submit", addFormBookToDisplay);
 document.querySelector("form").addEventListener("reset", cancelBookCreation);
-
-
-// To do
-// - make it look better, style the cards, the background...
-// - add form validation 
-// - change book names
-// - change dialog style
-
-

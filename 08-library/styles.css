@@ -10,6 +10,11 @@ body {
     justify-content: center;
     align-items: center;
     gap: 50px;
+    background-color: #fdf0d5;
+}
+
+h1 {
+    color: #003049;
 }
 
 .book-container {
@@ -28,23 +33,51 @@ body {
         "pages ."
         "read ."
     ;
-    background-color: whitesmoke;
+
     position: relative;
     overflow: visible;
+
+
+}
+
+.book-card,
+button {
+    background-color: white;
+    color: #003049;
+
+    border-radius: 5px;
+    border-color: #669bbc;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 2px 2px 5px 0.1px #003049;
+}
+
+button {
+    border-width: 1px;
+    font-size: larger;
+    font-weight: bold;
+
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #669bbc;
 }
 
 .book-card > div {
-    padding: 2px;
+    padding: 4px;
 }
 
 .book-card svg {
     cursor: pointer;
     grid-area: close;
-    fill: black;
+    fill: #003049;
 }
 
 .book-card svg:hover {
-    fill: grey;
+    fill: #669bbc;
 }
 
 .book-card svg path {
@@ -70,21 +103,17 @@ body {
     gap: 5px;
 }
 
-button {
-    width: 100px;
-    height: 30px;
-    cursor: pointer;
-}
-
 dialog[open] {
     position: fixed;
     top: 50%;
     left: 50%;
     width: 400px;
     margin-left: -200px;
-    height: 300px;
-    margin-top: -150px;
-    background: yellow;
+    height: 320px;
+    margin-top: -160px;
+
+    color: #003049;
+    font-weight: bold;
 }
 
 dialog[open] form {
@@ -94,7 +123,6 @@ dialog[open] form {
 }
 
 dialog[open] form div {
-    background-color: aliceblue;
     margin: 10px;
     display: flex;
     justify-content: space-around;
@@ -102,9 +130,12 @@ dialog[open] form div {
     flex-direction: column;
 }
 
+dialog[open] form div input {
+    font-size: larger
+}
+
 dialog[open] form div.buttons {
     flex-direction: row;
-    background-color: pink;
 }
 
 
