@@ -173,9 +173,9 @@ document.querySelector("form").addEventListener("reset", cancelBookCreation);
 
 
 // To do
-// - add title
 // - make it look better, style the cards, the background...
 // - add form validation 
 // - change book names
+// - change dialog style
 
 
