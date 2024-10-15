@@ -32,5 +32,4 @@ Pixel art board inspired by the old Etch-a-sketch
 - [Calculator](https://valentin-semur.github.io/odin_projects/05_calculator/)
 - [Sign-up form](https://valentin-semur.github.io/odin_projects/06_sign-up-form/)
 - [Admin dashboard](https://valentin-semur.github.io/odin_projects/07_admin-dashboard/)
-
-
+- [Library](https://valentin-semur.github.io/odin_projects/08_library/)
