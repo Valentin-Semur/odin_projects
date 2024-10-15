@@ -147,3 +147,11 @@ addBookButton.addEventListener("click", () => {
 
 document.querySelector("form").addEventListener("submit", addFormBookToDisplay);
 document.querySelector("form").addEventListener("reset", cancelBookCreation);
+
+
+// To do
+// - add button for read
+// - add title
+
+
+

@@ -38,9 +38,13 @@ body {
 }
 
 .book-card svg {
-    cursor: pointer; /* Add a pointer cursor */
+    cursor: pointer;
     grid-area: close;
     fill: black;
+}
+
+.book-card svg:hover {
+    fill: grey;
 }
 
 .book-card svg path {
@@ -67,6 +71,7 @@ body {
 button {
     width: 100px;
     height: 30px;
+    cursor: pointer;
 }
 
 dialog[open] {
