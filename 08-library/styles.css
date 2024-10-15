@@ -9,7 +9,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 50px;
 }
 
 .book-container {
@@ -66,6 +66,8 @@ body {
 
 .book-read {
     grid-area: read;
+    display: flex;
+    gap: 5px;
 }
 
 button {

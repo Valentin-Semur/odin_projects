@@ -5,37 +5,37 @@ const bookDump = [
       "author": "Chinua Achebe",
       "pages": 209,
       "title": "Things Fall Apart",
-      "read": "nope"
+      "read": "on"
     },
     {
       "author": "Hans Christian Andersen",
       "pages": 784,
       "title": "Fairy tales",
-      "read": "nope"
+      "read": ""
     },
     {
       "author": "Dante Alighieri",
       "pages": 928,
       "title": "The Divine Comedy",
-      "read": "nope"
+      "read": ""
     },
     {
       "author": "Unknown",
       "pages": 160,
       "title": "The Epic Of Gilgamesh",
-      "read": "nope"
+      "read": "on"
     },
     {
       "author": "Unknown",
       "pages": 176,
       "title": "The Book Of Job",
-      "read": "nope"
+      "read": "on"
     },
     {
       "author": "Unknown",
       "pages": 288,
       "title": "One Thousand and One Nights",
-      "read": "nope"
+      "read": ""
     }
 ]
 
@@ -70,7 +70,7 @@ function displayLibrary(library) {
 
         // Add a book id for each card
         const bookNumber = library.indexOf(book);
-        bookCard.id = `book-${bookNumber}`;
+        bookCard.id = bookNumber;
 
         // Add the close button
         const closeButton = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -84,8 +84,7 @@ function displayLibrary(library) {
         const bookProperties = [
             { label: 'book-title', value: book.title},
             { label: 'book-author', value: `Author: ${book.author}`},
-            { label: 'book-pages', value: `Lenght: ${book.pages} pages`},
-            { label: 'book-read', value: book.read}
+            { label: 'book-pages', value: `Lenght: ${book.pages} pages`}
         ];
 
         // Create a div for each property
@@ -96,6 +95,22 @@ function displayLibrary(library) {
             bookCard.appendChild(propertyDiv);
         });
 
+        // Add a checkbox for the read property
+        const readCheckbox = document.createElement("input");
+        readCheckbox.type = "checkbox";
+        if (book.read === "on") {
+            readCheckbox.checked = true;
+        }
+        readCheckbox.addEventListener("change", changeReadStatus);
+
+        const bookReadRow = document.createElement("div");
+        bookReadRow.classList.add("book-read");
+        const bookReadTitle = document.createElement("div");
+        bookReadTitle.textContent = "Read: "
+        bookReadRow.appendChild(bookReadTitle)
+        bookReadRow.appendChild(readCheckbox);
+        bookCard.appendChild(bookReadRow);
+
         bookContainer.appendChild(bookCard);
     });
 
@@ -105,10 +120,18 @@ function displayLibrary(library) {
     })
 }
 
+function changeReadStatus() {
+    const bookID = this.parentElement.parentElement.id
+    if (this.checked) {
+        myLibrary[bookID].read = "on"
+    } else {
+        myLibrary[bookID].read = ""
+    }
+}
+
 function removeBookCardFromDisplay(e) {
-    const bookNumber = e.target.parentElement.id;
-    const bookIndex = bookNumber.substring(bookNumber.indexOf("-") + 1);
-    removeBookFromLibrary(bookIndex);
+    const bookID = e.target.parentElement.id;
+    removeBookFromLibrary(bookID);
     displayLibrary(myLibrary);
 }
 
@@ -150,8 +173,9 @@ document.querySelector("form").addEventListener("reset", cancelBookCreation);
 
 
 // To do
-// - add button for read
 // - add title
-
+// - make it look better, style the cards, the background...
+// - add form validation 
+// - change book names
 
 
