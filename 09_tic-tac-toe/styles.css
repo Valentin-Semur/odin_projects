@@ -2,3 +2,20 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.gameboard {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    font-size: 100px;
+    gap: 20px;
+}
+

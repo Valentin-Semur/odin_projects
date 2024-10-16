@@ -54,7 +54,6 @@ const GameController = (function () {
         players.push(player2);
     }
     
-
     return { initPlayers, players };
 })();
 
@@ -67,7 +66,7 @@ const Match = (function () {
     };
 
     const switchPlayerTurn = () => {
-        players = GameController.players;
+        const players = GameController.players;
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
         console.log(`Active player is now ${activePlayer.name}`) // TEST
     };
@@ -117,7 +116,6 @@ const Match = (function () {
         }
     };
 
-
     return { initMatch, switchPlayerTurn, getActivePlayer, isGameOver, playRound };
 })();
 
@@ -135,15 +133,37 @@ const Utils = (function () {
         return (product === 1) || (product === 8);    
     }
 
-
     return { transpose, isWinningLine };
 })();
 
-// For much later
+
 const DisplayController = (function () {
-    
+    const gameboard_container = document.querySelector(".gameboard");
+
+    const initGameboard = () => {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const cell = document.createElement("div");
+                cell.id = `${i},${j}`;
+                cell.textContent = "X"
+                cell.addEventListener("click", logClick);
+
+                gameboard_container.appendChild(cell)
+            }
+        }
+    }
+
+    function logClick() {
+        console.log(this.id);
+    }
+
+
+
+
+    return { initGameboard };
 })();
 
+DisplayController.initGameboard();
 
 function playTestRows() {
     GameController.initPlayers();
