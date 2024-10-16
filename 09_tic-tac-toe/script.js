@@ -1,48 +1,41 @@
 
-
-// Goal is to have as little global code as possible
-// Use factories
-// When a single instance is needed (gameboard, displayController...)
-// Wrap the factory inside an IIFE
-
-// Each piece of logic should fit in the game, player or gameboard object
-
-
 const Gameboard = (function () {
-    const rows = 3;
-    const columms = 3;
     const board = [];
 
-    for (let i = 0; i < rows; i++) {
-        board[i] = [];
-        for (let j = 0; j < columms; j++) {
-            board[i].push(Cell());
-        }
-    }
+    const resetBoard = () => {
+        for (let i = 0; i < 3; i++) {
+            board[i] = [];
+            for (let j = 0; j < 3; j++) {
+                board[i].push(Cell());
+            };
+        };
+    };
+    // Initialize the first board
+    resetBoard();
 
     const getBoard = () => board;
 
     const placeMarker = (row, column, player) => {
-        board[row][column].changeValue(player)
+        const value = player.marker;
+        board[row][column].changeValue(value)
     }
 
-    // Only used to test the game in the console
-    const printBoard = () => {
+    const printBoard = () => { // TEST
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
-        console.log(boardWithCellValues);
+        console.table(boardWithCellValues);
     }
 
-    return { getBoard, printBoard, placeMarker };
+    return { getBoard, printBoard, placeMarker, resetBoard };
 })();
 
 
-
 const GameController = (function (
-    player1 = Player("Valentin", "X"),
-    player2 = Player("Magali", "O")
+    player1 = Player("Valentin", 1),
+    player2 = Player("Magali", 2)
 ) {
 
     const players = [player1, player2];
+    let winner;
 
     let activePlayer = players[0];
 
@@ -59,13 +52,24 @@ const GameController = (function (
 
     const playRound = (row, column) => {
         console.log(
-            `${getActivePlayer.name} plays on row ${row} and column ${column}`
+            `${getActivePlayer().name} plays on row ${row} and column ${column}`
         );
         Gameboard.placeMarker(row, column, getActivePlayer())
 
-        switchPlayerTurn();
-        printNewRound();
+        if (GameState.isGameOver()) {
+            endGame();
+        } else {
+            switchPlayerTurn();
+            printNewRound();
+        };
+
+        
     };
+
+    const endGame = () => {
+        winner = activePlayer
+        console.log(`The winner is ${winner.name}`)
+    }
 
     // Initial play message
     printNewRound();
@@ -75,14 +79,61 @@ const GameController = (function (
     };
 })();
 
-const game = GameController;
+const GameState = (function () {
+    let winningCells = {};
+    let emptyCells = [];
+
+    const _updateGameState = () => {
+        const board = Gameboard.getBoard()
+        const diagonals = [[board[0][0], board[1][1], board[2][2]], [board[0][2], board[1][1], board[2][0]]]
+
+        const winningRow = board.findIndex(_isWinningLine)
+        const winningColumn = _transpose(board).findIndex(_isWinningLine)
+        const winningDiagonal = diagonals.findIndex(_isWinningLine)
+
+        if ((winningRow != -1) || (winningColumn != -1) || (winningDiagonal != -1)) {
+            winningCells = {
+                "row": winningRow,
+                "column": winningColumn,
+                "diagonal": winningDiagonal
+            };
+        };
+
+        emptyCells = board.filter((row) => (row.filter((cell) => cell.getValue() === 0)).length != 0);
+
+    }
+
+    // Transpose the board to compare the columns as rows
+    const _transpose = (board) => {
+        return board[0].map((col, i) => board.map(row => row[i]));
+    }
+
+    // Checks if a line of three cells is winning
+    const _isWinningLine = (line) => {
+        // Multiplies the three values of the line, and returns true if result is 1 or 8
+        const product = line.reduce((accumulator, cell) =>
+            accumulator * cell.getValue(),
+            1
+        );
+        return (product === 1) || (product === 8);
+    }
+
+    const isGameOver = () => {
+        _updateGameState();
+        return (Object.keys(winningCells).length != 0) || (emptyCells.length === 0);
+    }
+
+    const getWinningCells = () => winningCells;
+
+    return { isGameOver, getWinningCells };
+})();
+
 
 function Cell() {
-    let value = 0;
+    let cellValue = 0;
 
-    const changeValue = (player) => value = player.marker;
-    const getValue = () => value;
-
+    const changeValue = (value) => cellValue = value;
+    const getValue = () => cellValue;
     return { changeValue, getValue };
 }
 
@@ -101,3 +152,53 @@ function Player(name, marker) {
 const DisplayController = (function () {
     
 })();
+
+
+function playTestRows() {
+    GameController.playRound(0, 0)
+    GameController.playRound(1, 0)
+    GameController.playRound(0, 1)
+    GameController.playRound(1, 1)
+    GameController.playRound(2, 2)
+    GameController.playRound(1, 2)
+}
+
+function playTestColumns() {
+    GameController.playRound(0, 0)
+    GameController.playRound(0, 1)
+    GameController.playRound(1, 0)
+    GameController.playRound(1, 1)
+    GameController.playRound(2, 0)
+}
+
+function playTestDiagonals() {
+    GameController.playRound(0, 0)
+    GameController.playRound(0, 1)
+    GameController.playRound(1, 1)
+    GameController.playRound(1, 0)
+    GameController.playRound(2, 2)
+}
+
+function playTestRC() {
+    GameController.playRound(0, 1)
+    GameController.playRound(1, 1)
+    GameController.playRound(0, 2)
+    GameController.playRound(1, 2)
+    GameController.playRound(1, 0) 
+    GameController.playRound(2, 1)
+    GameController.playRound(2, 0)
+    GameController.playRound(2, 2)
+    GameController.playRound(0, 0)
+}
+
+function playTestNull() {
+    GameController.playRound(0, 0)
+    GameController.playRound(0, 1)
+    GameController.playRound(0, 2)
+    GameController.playRound(1, 1) 
+    GameController.playRound(1, 0)
+    GameController.playRound(1, 2)
+    GameController.playRound(2, 1)
+    GameController.playRound(2, 0)
+    GameController.playRound(2, 2)
+}
