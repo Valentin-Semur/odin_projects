@@ -33,3 +33,4 @@ Pixel art board inspired by the old Etch-a-sketch
 - [Sign-up form](https://valentin-semur.github.io/odin_projects/06_sign-up-form/)
 - [Admin dashboard](https://valentin-semur.github.io/odin_projects/07_admin-dashboard/)
 - [Library](https://valentin-semur.github.io/odin_projects/08_library/)
+- [Tic-Tac-Toe](https://valentin-semur.github.io/odin_projects/09_tic-tac-toe/)
