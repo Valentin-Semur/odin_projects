@@ -3,33 +3,54 @@
     padding: 0;
 }
 
+:root {
+    --dark-brown: #603829;
+    --ligth-brown: #ab7e69;
+}
+
+@font-face {
+    font-family: "Upheav";
+    src: url('fonts/upheavtt.ttf') format('truetype');
+}
+
+
 body {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family:'Upheav';
     cursor: url("img/finger.webp"), auto;
+    background-image: url(img/floors.png);
+    background-size: 500px;
 }
 
 .game {
+    height: 650px;
     display: grid;
-    grid-template: 1fr 450px / repeat(3, 350px);
+    grid-template: 80px 520px / 350px 400px 350px;
     grid-template-areas:
         "title title title"
         "player1 game player2";
-    gap: 20px;
+    gap: 10px;
+    background-image: url(img/background.png);
+    background-size: 1120px 650px;
+    background-repeat: no-repeat;
 }
 
 .title {
     grid-area: title;
     text-align: center;
+    align-self: end;
+    display: flex;
+    justify-content: center;
 }
 
 .center {
     grid-area: game;
     display: grid;
-    grid-template: 400px 1fr / repeat(2, 1fr); 
+    grid-template: 450px 1fr / repeat(2, 1fr); 
     grid-template-areas:
         "gameboard gameboard"
         "match game";
@@ -37,34 +58,34 @@ body {
 
 .gameboard {
     grid-area: gameboard;
-    height: 400px;
+    height: 450px;
     display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    font-size: 100px;
+    grid-template: repeat(3, 100px) / repeat(3, 100px);
+    justify-content: center;
+    align-content: center;
+
     gap: 20px;
+    background: url(img/shops.png); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom ;
 }
 
-button {
-    width: 100px;
-    height: 40px;
-    align-self: center;
-    justify-self: center;
-}
-
-.reset-game {
-    grid-area: game;
-}
-
-.reset-match {
-    grid-area: match;
+.gameboard div {
+    background-image: url(img/altar.webp);
+    background-repeat: no-repeat;
+    background-position: bottom 5px center ;
+    background-size: 35px;
 }
 
 #player1 {
     grid-area: player1;
+    margin-left: 20px;
 }
 
 #player2 {
     grid-area: player2;
+    margin-right: 20px;
 }
 
 .player {
@@ -75,7 +96,19 @@ button {
 }
 
 input {
-    text-align: center
+    text-align: center;
+    font-size: 25px;
+    background: transparent;
+    border: none;
+    font-family: 'Upheav';
+}
+
+.player-name {
+    font-size: 30px;
+}
+
+.title-score {
+    font-size: 30px;
 }
 
 .characters {
@@ -84,6 +117,7 @@ input {
     gap: 5px;
 }
 
+
 img {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
@@ -91,12 +125,11 @@ img {
 }
 
 img.chooser {
-    height: 80px;
+    height: 75px;
 }
 
 img.chooser:hover {
     filter: brightness(50%);
-
 }
 
 img.character {
@@ -114,4 +147,33 @@ img.character {
 .highlighted {
     background-color: yellow;
     border-radius: 50px;
+}
+
+.button {
+    cursor: url("img/finger.webp"), auto;
+    width: 50px;
+    height: 40px;
+    align-self: center;
+    justify-self: center;
+}
+
+.button:hover {
+    filter: brightness(50%);
+
+}
+
+.reset-match {
+    background-image: url(img/button.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom ;
+    grid-area: match;
+}
+
+.reset-game {
+    background-image: url(img/killbutton.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom ;
+    grid-area: game;
 }

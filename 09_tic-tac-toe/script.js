@@ -48,12 +48,16 @@ const GameController = (function () {
     const scoreLimit = 3;
 
     const initPlayers = (player1, player2) => {
-        players.splice(0,2);
+        resetPlayers();
         players.push(player1);
         players.push(player2);
     }
+
+    const resetPlayers = () => {
+        players.splice(0,2);
+    }
     
-    return { initPlayers, players };
+    return { initPlayers, resetPlayers, players };
 })();
 
 const Match = (function () {
@@ -171,7 +175,7 @@ const DisplayController = (function () {
     }
 
     function logClick() {
-        if (this.querySelector("img") === null) {
+        if ((this.querySelector("img") === null) && (GameController.players.length === 2)) {
             const character = Match.getActivePlayer().character;
             const itemImage = document.createElement("img");
             itemImage.src = `img/characters/item-${character}.webp`;
@@ -191,6 +195,18 @@ const DisplayController = (function () {
         const playerImage =  document.querySelector(`#${player}>img`);
         playerImage.classList.toggle("highlighted");
     }
+
+    function resetHighlight() {
+        const highlightedPlayer = document.querySelector(".highlighted");
+        if (highlightedPlayer != null) {
+            highlightedPlayer.classList.toggle("highlighted");
+        };
+    }
+
+    function resetPlayers() {
+        player1 = undefined;
+        player2 = undefined;
+    };
 
     const initCharacterSelection = () => {
 
@@ -223,7 +239,7 @@ const DisplayController = (function () {
             const formInput = document.createElement("input");
             formInput.setAttribute("type", "text");
             formInput.setAttribute("name", player);
-            formInput.value = `${player.charAt(0).toUpperCase() + player.slice(1)}`;
+            formInput.value = `${player.slice(0, -1)} ${player.slice(-1)}`;
             formDiv.appendChild(formInput);
             playerArea.appendChild(formDiv);
 
@@ -299,6 +315,9 @@ const DisplayController = (function () {
 
     const resetGame = () => {
         initCharacterSelection();
+        resetHighlight();
+        GameController.resetPlayers();
+        resetPlayers();
         resetMatch();
     }
 
