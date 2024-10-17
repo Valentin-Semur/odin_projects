@@ -74,6 +74,9 @@ button {
     align-items: center;
 }
 
+input {
+    text-align: center
+}
 
 .characters {
     display: grid;

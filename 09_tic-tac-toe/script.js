@@ -48,6 +48,7 @@ const GameController = (function () {
     const scoreLimit = 3;
 
     const initPlayers = (player1, player2) => {
+        players.splice(0,2);
         players.push(player1);
         players.push(player2);
     }
@@ -106,8 +107,13 @@ const Match = (function () {
         Gameboard.printBoard();
 
         if (isGameOver()) {
-            console.log(`${activePlayer.name} is the winner !`)
-            activePlayer.addScore();
+            if ((winningRow != -1) || (winningColumn != -1) || (winningDiagonal != -1)) {
+                console.log(`${activePlayer.name} is the winner !`)
+                activePlayer.addScore();
+            }
+            DisplayController.updateScore();
+            DisplayController.resetMatch();
+            switchPlayerTurn();
             console.log(activePlayer);
         } else {
             switchPlayerTurn();
@@ -139,6 +145,12 @@ const DisplayController = (function () {
     let player1;
     let player2;
 
+    const updateScore = () => {
+        const player1Score = document.querySelector("#player1 .title-score");
+        const player2Score = document.querySelector("#player2 .title-score");
+        player1Score.textContent = `Score: ${player1.getScore()}`;
+        player2Score.textContent = `Score: ${player2.getScore()}`;
+    }
 
     const initGameboard = () => {
         Gameboard.resetBoard();
@@ -208,14 +220,10 @@ const DisplayController = (function () {
             // Name picker
             const formDiv = document.createElement("div");
             formDiv.classList.add("player-name");
-            const formTitle = document.createElement("label");
-            formTitle.textContent = "Name";
-            formTitle.setAttribute("for", player);
             const formInput = document.createElement("input");
             formInput.setAttribute("type", "text");
             formInput.setAttribute("name", player);
-            formInput.value = `Nameof${player}`; // TEST 
-            formDiv.appendChild(formTitle);
+            formInput.value = `${player.charAt(0).toUpperCase() + player.slice(1)}`;
             formDiv.appendChild(formInput);
             playerArea.appendChild(formDiv);
 
@@ -299,7 +307,7 @@ const DisplayController = (function () {
     const resetGameButton = document.querySelector(".reset-game");
     resetGameButton.addEventListener("click", resetGame);
 
-    return { initGameboard, initCharacterSelection };
+    return { initGameboard, initCharacterSelection, updateScore, resetMatch };
 })();
 
 
