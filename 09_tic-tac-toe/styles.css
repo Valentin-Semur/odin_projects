@@ -9,13 +9,65 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    cursor: url("img/finger.webp"), auto;
+}
+
+.game {
+    display: grid;
+    grid-template: 1fr 450px / repeat(3, 350px);
+    grid-template-areas:
+        "title title title"
+        "player1 game player2";
+    gap: 20px;
+}
+
+.title {
+    grid-area: title;
+    text-align: center;
+}
+
+.center {
+    grid-area: game;
 }
 
 .gameboard {
+    height: 400px;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     font-size: 100px;
     gap: 20px;
 }
 
+#player1 {
+    grid-area: player1;
+}
+
+#player2 {
+    grid-area: player2;
+}
+
+
+.characters {
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    gap: 5px;
+}
+
+img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+img.chooser {
+    height: 80px;
+}
+
+img.chooser:hover {
+    filter: brightness(50%);
+
+}
+
+img.character {
+    height: 300px;
+}
