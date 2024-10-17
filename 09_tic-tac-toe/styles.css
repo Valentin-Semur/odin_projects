@@ -28,14 +28,35 @@ body {
 
 .center {
     grid-area: game;
+    display: grid;
+    grid-template: 400px 1fr / repeat(2, 1fr); 
+    grid-template-areas:
+        "gameboard gameboard"
+        "match game";
 }
 
 .gameboard {
+    grid-area: gameboard;
     height: 400px;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     font-size: 100px;
     gap: 20px;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    align-self: center;
+    justify-self: center;
+}
+
+.reset-game {
+    grid-area: game;
+}
+
+.reset-match {
+    grid-area: match;
 }
 
 #player1 {
@@ -44,6 +65,13 @@ body {
 
 #player2 {
     grid-area: player2;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 
@@ -70,4 +98,17 @@ img.chooser:hover {
 
 img.character {
     height: 300px;
+}
+
+.gameboard div {
+    text-align: center;
+}
+
+.gameboard div img {
+    height: 70px;
+}
+
+.highlighted {
+    background-color: yellow;
+    border-radius: 50px;
 }

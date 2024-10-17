@@ -141,7 +141,11 @@ const DisplayController = (function () {
 
 
     const initGameboard = () => {
+        Gameboard.resetBoard();
+
         const gameboard_container = document.querySelector(".gameboard");
+        gameboard_container.innerHTML = "";
+
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
@@ -155,25 +159,25 @@ const DisplayController = (function () {
     }
 
     function logClick() {
-        const character = Match.getActivePlayer().character;
-        const itemImage = document.createElement("img");
-        itemImage.src = `img/characters/item-${character}.webp`;
-        this.appendChild(itemImage);
+        if (this.querySelector("img") === null) {
+            const character = Match.getActivePlayer().character;
+            const itemImage = document.createElement("img");
+            itemImage.src = `img/characters/item-${character}.webp`;
+            this.appendChild(itemImage);
 
-        const coordinates = this.id.split(",");
-        Match.playRound(coordinates[0], coordinates[1]);
-        highlightCurrentPlayer();
+            const coordinates = this.id.split(",");
+            Match.playRound(coordinates[0], coordinates[1]);
+            toggleHighlight("player1");
+            toggleHighlight("player2");
 
-        console.log(coordinates);
-        console.log(character);
+            console.log(coordinates);
+            console.log(character);
+        };
     }
 
-    function highlightCurrentPlayer() {
-        const currentPlayer = `player${Match.getActivePlayer().marker}`;
-        const currentPlayerImage = document.querySelector(`#${currentPlayer}>img`);
-        currentPlayerImage.classList.toggle()
-
-        console.log(currentPlayerDiv)
+    function toggleHighlight(player) {
+        const playerImage =  document.querySelector(`#${player}>img`);
+        playerImage.classList.toggle("highlighted");
     }
 
     const initCharacterSelection = () => {
@@ -256,7 +260,7 @@ const DisplayController = (function () {
             GameController.initPlayers(player1, player2);
             DisplayController.initGameboard();
             Match.initMatch();
-            highlightCurrentPlayer();
+            toggleHighlight(`player${Match.getActivePlayer().marker}`);
         }
     }
 
@@ -281,6 +285,19 @@ const DisplayController = (function () {
         playerArea.appendChild(playerCharacter);
     }
 
+    const resetMatch = () => {
+        initGameboard();
+    }
+
+    const resetGame = () => {
+        initCharacterSelection();
+        resetMatch();
+    }
+
+    const resetMatchButton = document.querySelector(".reset-match");
+    resetMatchButton.addEventListener("click", resetMatch);
+    const resetGameButton = document.querySelector(".reset-game");
+    resetGameButton.addEventListener("click", resetGame);
 
     return { initGameboard, initCharacterSelection };
 })();
