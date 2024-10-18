@@ -215,7 +215,7 @@ const DisplayController = (function () {
         }
     }
 
-    function logClick() {
+    async function logClick() {
         if ((this.querySelector("img") === null) && (GameController.players.length === 2) && (!Match.isGameOver())) {
             const character = Match.getActivePlayer().character;
             const itemImage = document.createElement("img");
@@ -223,7 +223,7 @@ const DisplayController = (function () {
             this.appendChild(itemImage);
 
             const coordinates = this.id.split(",");
-            Match.playRound(coordinates[0], coordinates[1]);
+            await Match.playRound(coordinates[0], coordinates[1]);
             toggleHighlight("player1");
             toggleHighlight("player2");
         };
