@@ -4,4 +4,4 @@ The previous lesson taught me about factory functions and IIFE and I'm supposed 
 
 ## TODO
 - Change highlight for current player
-- Show result before going to next game
+

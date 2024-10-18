@@ -93,6 +93,11 @@ body {
     border-radius: 50%;
 }
 
+.draw {
+    background-color: gray;
+    border-radius: 50%;
+}
+
 #player1 {
     grid-area: player1;
     margin-left: 20px;

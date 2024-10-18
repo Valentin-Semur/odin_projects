@@ -156,15 +156,33 @@ const DisplayController = (function () {
 
     const showWinningPosition = async () => {
         const winningPositions = getWinningBoardPositions()
-        console.log(winningPositions)
+        if (winningPositions.length === 0) {
+            await showDraw();
+        } else {
+            for (let i = 0; i < 6; i++) {
+                await Utils.sleep(500);
+                winningPositions.forEach((position) => {
+                    const cell = document.getElementById(position);
+                    cell.classList.toggle("winning");
+                })
+            }
+        }
+    }
 
+    const showDraw = async () => {
+        const currentPlayer = document.querySelector(".highlighted");
+        currentPlayer.classList.toggle("highlighted");
+
+        const winningPositions = ['0,0', '0,1', '0,2', '1,0', '1,1', '1,2', '2,0', '2,1', '2,2']
         for (let i = 0; i < 6; i++) {
             await Utils.sleep(500);
             winningPositions.forEach((position) => {
                 const cell = document.getElementById(position);
-                cell.classList.toggle("winning");
+                cell.classList.toggle("draw");
             })
         }
+
+        currentPlayer.classList.toggle("highlighted");
     }
 
     const getWinningBoardPositions = () => {
@@ -187,7 +205,8 @@ const DisplayController = (function () {
             winningIDs.push('2,0', '1,1', '0,2')
         };
 
-        return winningIDs;
+        const uniqueWinningIDs = [...new Set(winningIDs)];
+        return uniqueWinningIDs;
     }
 
     const updateScore = () => {
