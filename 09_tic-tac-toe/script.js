@@ -17,12 +17,7 @@ const Gameboard = (function () {
         board[row][column].changeValue(value)
     }
 
-    const printBoard = () => { // TEST
-        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
-        console.table(boardWithCellValues);
-    }
-
-    return { getBoard, printBoard, placeMarker, resetBoard };
+    return { getBoard, placeMarker, resetBoard };
 })();
 
 function Cell() {
@@ -71,7 +66,6 @@ const Match = (function () {
     const switchPlayerTurn = () => {
         const players = GameController.players;
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
-        console.log(`Active player is now ${activePlayer.name}`) // TEST
     };
 
     const getActivePlayer = () => activePlayer;
@@ -106,25 +100,32 @@ const Match = (function () {
         }
     };
 
-    const playRound = (row, column) => {
+    const playRound = async (row, column) => {
         Gameboard.placeMarker(row, column, activePlayer);
-        Gameboard.printBoard();
 
         if (isGameOver()) {
             if ((winningRow != -1) || (winningColumn != -1) || (winningDiagonal != -1)) {
-                console.log(`${activePlayer.name} is the winner !`)
                 activePlayer.addScore();
             }
+            await DisplayController.showWinningPosition();
             DisplayController.updateScore();
             DisplayController.resetMatch();
             switchPlayerTurn();
-            console.log(activePlayer);
         } else {
             switchPlayerTurn();
         }
     };
 
-    return { initMatch, switchPlayerTurn, getActivePlayer, isGameOver, playRound };
+    const getWinningPositions = () => {
+        return {
+            "winningRow": winningRow,
+            "winningColumn": winningColumn,
+            "winningDiagonal": winningDiagonal,
+            "emptyCells": emptyCells
+        }
+    };
+
+    return { initMatch, switchPlayerTurn, getActivePlayer, playRound, getWinningPositions, isGameOver };
 })();
 
 
@@ -141,13 +142,53 @@ const Utils = (function () {
         return (product === 1) || (product === 8);    
     }
 
-    return { transpose, isWinningLine };
+    const sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+    return { transpose, isWinningLine, sleep };
 })();
 
 
 const DisplayController = (function () {
     let player1;
     let player2;
+
+    const showWinningPosition = async () => {
+        const winningPositions = getWinningBoardPositions()
+        console.log(winningPositions)
+
+        for (let i = 0; i < 6; i++) {
+            await Utils.sleep(500);
+            winningPositions.forEach((position) => {
+                const cell = document.getElementById(position);
+                cell.classList.toggle("winning");
+            })
+        }
+    }
+
+    const getWinningBoardPositions = () => {
+        const winningPositions = Match.getWinningPositions()
+        const winningIDs = [];
+
+        if (winningPositions.winningRow != -1) {
+            for (let i = 0; i < 3; i++) {
+                winningIDs.push(`${winningPositions.winningRow},${i}`)
+            }
+        };
+        if (winningPositions.winningColumn != -1) {
+            for (let i = 0; i < 3; i++) {
+                winningIDs.push(`${i},${winningPositions.winningColumn}`)
+            }
+        };
+        if (winningPositions.winningDiagonal === 0) {
+            winningIDs.push('0,0', '1,1', '2,2')
+        } else if (winningPositions.winningDiagonal === 1) {
+            winningIDs.push('2,0', '1,1', '0,2')
+        };
+
+        return winningIDs;
+    }
 
     const updateScore = () => {
         const player1Score = document.querySelector("#player1 .title-score");
@@ -175,7 +216,7 @@ const DisplayController = (function () {
     }
 
     function logClick() {
-        if ((this.querySelector("img") === null) && (GameController.players.length === 2)) {
+        if ((this.querySelector("img") === null) && (GameController.players.length === 2) && (!Match.isGameOver())) {
             const character = Match.getActivePlayer().character;
             const itemImage = document.createElement("img");
             itemImage.src = `img/characters/item-${character}.webp`;
@@ -185,9 +226,6 @@ const DisplayController = (function () {
             Match.playRound(coordinates[0], coordinates[1]);
             toggleHighlight("player1");
             toggleHighlight("player2");
-
-            console.log(coordinates);
-            console.log(character);
         };
     }
 
@@ -326,7 +364,7 @@ const DisplayController = (function () {
     const resetGameButton = document.querySelector(".reset-game");
     resetGameButton.addEventListener("click", resetGame);
 
-    return { initGameboard, initCharacterSelection, updateScore, resetMatch };
+    return { initGameboard, initCharacterSelection, updateScore, resetMatch, showWinningPosition };
 })();
 
 

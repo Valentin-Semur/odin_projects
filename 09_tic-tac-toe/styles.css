@@ -47,6 +47,14 @@ body {
     justify-content: center;
 }
 
+.title img {
+    height: 50px;
+}
+
+.title h1 {
+    align-self: center;
+}
+
 .center {
     grid-area: game;
     display: grid;
@@ -64,9 +72,11 @@ body {
     justify-content: center;
     align-content: center;
 
+    border-radius: 20px;
+
     gap: 20px;
     background: url(img/shops.png); 
-    background-size: contain;
+    background-size: 400px 450px;
     background-repeat: no-repeat;
     background-position: bottom ;
 }
@@ -76,6 +86,11 @@ body {
     background-repeat: no-repeat;
     background-position: bottom 5px center ;
     background-size: 35px;
+}
+
+.winning {
+    background-color: yellow;
+    border-radius: 50%;
 }
 
 #player1 {
@@ -101,6 +116,10 @@ input {
     background: transparent;
     border: none;
     font-family: 'Upheav';
+}
+
+input:focus-visible {
+    outline: none;
 }
 
 .player-name {
