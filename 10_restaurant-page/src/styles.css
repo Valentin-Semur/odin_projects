@@ -1,4 +1,40 @@
-
 * {
-    background-color: blue;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-image: url(img/panorama.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+#content-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home-content {
+    width: 50vw;
+}
+
+
+
+footer {
+    display: flex;
+    justify-content: center;
 }
