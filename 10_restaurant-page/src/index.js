@@ -20,7 +20,11 @@ const showMenuPage = function() {
 }
 
 const showContactPage = function() {
-    createContactContent();
+    const container = document.querySelector("#content-container");
+    container.innerHTML = "";
+    
+    const contactContent = createContactContent();
+    container.appendChild(contactContent);
 }
 
 const initButtons = function() {
@@ -37,5 +41,5 @@ const initButtons = function() {
 
 
 
-showMenuPage();
+showContactPage();
 initButtons();

@@ -41,8 +41,8 @@ h1 {
     align-self: center;
 }
 
-#home-content, #menu-content {
-    width: 50vw;
+#home-content, #menu-content, #contact-content {
+    width: min(50vw, 700px);
     padding: 20px;
 
     background-image: url(img/background/table.png);
@@ -65,10 +65,10 @@ h1 {
 
 #menu-content {
     display: grid;
-    grid-template: repeat(4, 1fr) / repeat(2, 1fr);
+    grid-template: 1fr repeat(3, 2fr) / repeat(2, 1fr);
 
     justify-items: center;
-    gap: 49px;
+    gap: 30px;
 }
 
 #menu-content h1 {
@@ -94,6 +94,22 @@ h1 {
     height: 18px;
 }
 
+#contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-card {
+    display: grid;
+    grid-template: repeat(2, 1fr) / 1fr 2fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.contact-card p {
+    grid-area: 1 / 2 / 3 / 3;
+}
 
 footer {
     display: flex;
