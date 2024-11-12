@@ -68,8 +68,4 @@ const createLocation = function() {
 }
 
 
-
-
-
-
 export {createHomeContent};

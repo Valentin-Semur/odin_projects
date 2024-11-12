@@ -41,5 +41,5 @@ const initButtons = function() {
 
 
 
-showContactPage();
+showHomePage();
 initButtons();

@@ -114,7 +114,22 @@ h1 {
 footer {
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 30px;
+    gap: 10px;
+    
+    font-size: 1.4em;
 
     background-image: url(img/background/floor.png);
 }
+
+button {
+    width: 200px;
+    height: 20px;
+    margin-top: 5px;
+    font-family: "Stardew"; 
+    font-size: 1.1em;
+
+    background-color: #E4AB7E;
+}
+
