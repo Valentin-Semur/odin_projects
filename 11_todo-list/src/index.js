@@ -6,4 +6,5 @@ import displayHandler from "./displayHandler.js";
 
 
 
-displayHandler.loadFooter() // refacto everything to create the footer within a DOM factory
+displayHandler.loadFooter();
+displayHandler.loadSidebar();

@@ -12,17 +12,55 @@
     --secondary-dark: #BC6C25;
 }
 
+@font-face {
+    font-family: "Playfair";
+    src: url('fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+}
+
 body {
     height: 100vh;
     display: grid;
     grid-template: 1fr 30px / minmax(200px, 1fr) 6fr ;
+
+    font-family: "Playfair";
 }
 
+#sidebar {
+    grid-area: 1 / 1 / 3 / 2;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
+    padding: 60px 30px;
 
+    color: var(--neutral);
+    background-color: var(--primary-dark);
+    font-size: larger;
+}
 
+#sidebar p:hover {
+    color: var(--secondary-light);
+    cursor: pointer;
+}
 
+#sidebar p:active {
+    color: var(--secondary-dark);
+    cursor: pointer;
+    user-select: none;
+}
 
+#sidebar div.item {
+    display: flex;
+}
+
+#sidebar .item {
+    padding-left: 15px;
+}
+
+#content {
+    background-color: var(--neutral);
+}
 
 
 footer {
@@ -33,8 +71,8 @@ footer {
     justify-content: center;
     gap: 20px;
 
-    background-color: var(--neutral);
-    color: var(--primary-dark)
+    color: var(--primary-dark);
+    background-color: var(--secondary-light);
 }
 
 footer img {
