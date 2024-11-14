@@ -1,44 +1,73 @@
 import githubSVG from "./img/github.svg"
+import deleteSVG from "./img/delete.svg"
+import highSVG from "./img/high.svg"
+import mediumSVG from "./img/medium.svg"
+import lowSVG from "./img/low.svg"
 
 const displayHandler = (function() {
 
-    const _createElement = (type) => {
-        const element = document.createElement(type);
-        return element;
+    const addTaskCard = (completed, name, date, priority) => {
+        const contentElement = document.querySelector("#content");
+        const taskCard = document.createElement("div");
+        const taskComplete = document.createElement("input");
+        const taskName = document.createElement("p");
+        const taskDate = document.createElement("p");
+        const taskPriority = document.createElement("img");
+        const taskDelete = document.createElement("img");
+
+        // are all those classes really necessary ?
+        taskCard.classList.add("task-card");
+        taskComplete.classList.add("task-complete");
+        taskComplete.type = "checkbox";
+        taskComplete.checked = completed;
+        taskName.classList.add("task-name");
+        taskName.textContent = name;
+        taskDate.classList.add("task-date");
+        taskDate.textContent = date;
+        taskPriority.classList.add("task-priority");
+        taskDelete.classList.add("task-delete");
+        taskDelete.src = deleteSVG;
+        taskDelete.alt = "Delete trash sign"
+
+        if (priority === 1) {
+            taskPriority.src = highSVG;
+        } else if (priority === 2) {
+            taskPriority.src = mediumSVG;
+        } else if (priority === 3) {
+            taskPriority.src = lowSVG;
+        }
+
+        taskCard.appendChild(taskComplete);
+        taskCard.appendChild(taskName);
+        taskCard.appendChild(taskDate);
+        taskCard.appendChild(taskPriority);
+        taskCard.appendChild(taskDelete);
+        contentElement.appendChild(taskCard);
     }
 
-    const _addClassesToElement = (element, classes) => {
-        if (Array.isArray(classes)) {
-            for (let cssClass of classes) {
-                element.classList.add(cssClass);
-            }
-        } else {
-            element.classList.add(classes);
-        }
-    }
+    const addProject = (name) => {
+        const addProject = document.querySelector("#add-project");
+        const projectDiv = document.createElement("div");
+        const projectName = document.createElement("p");
+        const projectDelete = document.createElement("img");
 
-    const _createElementWithTextClassID = (type, text, classes, id) => {
-        const element = _createElement(type);
-        element.textContent = text;
-        if (typeof classes !== "undefined") {
-            _addClassesToElement(element, classes);
-        }
-        if (typeof id !== "undefined") {
-            element.id = id
-        }
-        return element;
-    }
+        projectDiv.classList.add("item");
+        projectName.textContent = name;
+        projectDelete.id = "delete-icon";
+        projectDelete.src = deleteSVG;
+        projectDelete.alt = "Delete trash sign";
 
+        projectDiv.appendChild(projectName);
+        projectDiv.appendChild(projectDelete);
+        addProject.before(projectDiv);
+    }
     
-    const projectTitle = _createElementWithTextClassID("p", "Projects", "title");
-
-
     const loadSidebar = () => {
         const sidebarElement = document.querySelector("#sidebar");
         const inboxTitle = document.createElement("p");
         const todayTitle = document.createElement("p");
         const projectDiv = document.createElement("div");
-        //const projectTitle = document.createElement("p");
+        const projectTitle = document.createElement("p");
         const addProject = document.createElement("p");
         const priorityDiv = document.createElement("div");
         const priorityTitle = document.createElement("p");
@@ -49,9 +78,10 @@ const displayHandler = (function() {
         inboxTitle.textContent = "Inbox";
         todayTitle.textContent = "Today";
         projectDiv.id = "projects";
-        //projectTitle.classList.add("title");
-        //projectTitle.textContent = "Projects";
-        addProject.classList.add("Item");
+        projectTitle.classList.add("title");
+        projectTitle.textContent = "Projects";
+        addProject.classList.add("item");
+        addProject.id = "add-project";
         addProject.textContent = "+ Add project";
         priorityDiv.id = "priorities";
         priorityTitle.classList.add("title");
@@ -62,8 +92,6 @@ const displayHandler = (function() {
         priorityMedium.textContent = "Medium";
         priorityLow.classList.add("item");
         priorityLow.textContent = "Low";
-
-        const projectTitle = _createElementWithTextClassID("p", "Projects", "title");
 
         priorityDiv.appendChild(priorityTitle);
         priorityDiv.appendChild(priorityHigh);
@@ -95,7 +123,7 @@ const displayHandler = (function() {
 
 
     return {
-        loadFooter, loadSidebar,
+        loadFooter, loadSidebar, addProject, addTaskCard,
     }
 })();
 
