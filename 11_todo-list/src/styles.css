@@ -2,3 +2,51 @@
     margin: 0;
     padding: 0;
 }
+
+/* https://css-tricks.com/what-do-you-name-color-variables/ */
+:root {
+    --primary-light: #606C38;
+    --primary-dark: #283618;
+    --neutral: #FEFAE0;
+    --secondary-light: #DDA15E;
+    --secondary-dark: #BC6C25;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template: 1fr 30px / minmax(200px, 1fr) 6fr ;
+}
+
+
+
+
+
+
+
+
+footer {
+    grid-area: 2 / 1 / 3 / 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    background-color: var(--neutral);
+    color: var(--primary-dark)
+}
+
+footer img {
+    margin: 0 auto;
+    display: block;
+    color: var(--primary-dark);
+    filter: invert(16%) sepia(32%) saturate(760%) hue-rotate(46deg) brightness(96%) contrast(91%);
+
+    height: 24px;
+    width: 24px;
+}
+
+footer img:hover {
+    filter: invert(39%) sepia(26%) saturate(645%) hue-rotate(33deg) brightness(95%) contrast(93%);
+}

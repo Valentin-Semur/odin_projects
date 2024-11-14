@@ -1,8 +1,9 @@
 import "./styles.css";
-import taskFactory from "./task.js"
-import projectFactory from "./project.js"
+import dataHandler from "./dataHandler.js"
+import displayHandler from "./displayHandler.js";
 
 
 
-const task1 = taskFactory()
-console.log(task1.getTaskDetails())
+
+
+displayHandler.loadFooter() // refacto everything to create the footer within a DOM factory
