@@ -28,35 +28,67 @@ const logicInterface = (function() {
         displayHandler.addProject(project.getName());
     }
 
-    const showAllTasks = (projectFilter, priorityFilter, dateFilter) => { // add filter intelligence
+    const _isNotInPriorityFilter = (priority, filter) => {
+        if (filter === "high" && (priority === 3 || priority === 4)) {
+            return false;
+        } else if (filter === "medium" && priority === 2) {
+            return false;
+        } else if (filter === "low" && (priority === 0 || priority === 1)) {
+            return false;
+        }
+        return true
+    }
+
+    const _isNotToday = (date) => {
+        return date.toLocaleString().split(',')[0] != new Date().toLocaleString().split(',')[0]
+    }
+
+    const showAllTasks = (projectFilter, priorityFilter, todayFilter) => { // add filter intelligence
         displayHandler.resetTasks();
-        initAddTaskOption();
         
         for (let task of TASKS) {
-            showTask(task);
+            if (task.getProject() != projectFilter && projectFilter != undefined) {
+                continue;
+            } else if (_isNotInPriorityFilter(task.getPriority(), priorityFilter) && priorityFilter != undefined) {
+                continue;
+            } else if (_isNotToday(task.getDueDate()) && todayFilter === true) {
+                continue;
+            } else {
+                showTask(task);
+            }
         }
+
+        initAddTaskOption();
     }
 
     const addTaskFromForm = (e) => {
         e.preventDefault();
-        const name = document.querySelector("#new-task-name input");
-        const dueDate = document.querySelector("#new-task-date input");
-        console.log(dueDate.value);
+        const taskItem = displayHandler.getTaskCreatorValues();
         const task = dataHandler.taskFactory()
-            .setName(name.value)
-            .setDueDate(new Date(dueDate.value))
+            .setName(taskItem.name)
+            .setDueDate(taskItem.dueDate)
+            .setPriority(taskItem.priority)
+            .setProject(taskItem.project)
+            .setDescription(taskItem.description)
 
         TASKS.push(task);
         showAllTasks();
-        
-        console.log("lol");
     }
-    
 
+    const addPriorityFilter = () => {
+        const high = document.querySelector("#priority-high");
+        const medium = document.querySelector("#priority-medium");
+        const low = document.querySelector("#priority-low");
 
+        high.addEventListener("click", () => {showAllTasks(undefined, "high", undefined)})
+        medium.addEventListener("click", () => {showAllTasks(undefined, "medium", undefined)})
+        low.addEventListener("click", () => {showAllTasks(undefined, "low", undefined)})
+
+        console.log(high)
+    }
 
     return {
-        showTask, showProject, showAllTasks, initAddTaskOption, TASKS, PROJECTS
+        showTask, showProject, showAllTasks, initAddTaskOption, addPriorityFilter, TASKS, PROJECTS
     }
 
 })();
@@ -69,8 +101,8 @@ const createAndShowMockTasks = () => {
     const mockTasks = {
         task1: {
             name: "Do the dishes",
-            dueDate: new Date("2029-09-01"),
-            priority: 2,
+            dueDate: new Date("2024-11-15"),
+            priority: 0,
             completed: false,
             project: "Life"
         },
@@ -83,7 +115,7 @@ const createAndShowMockTasks = () => {
         },
         task3: {
             name: "Bisous to Magali",
-            dueDate: new Date("2024-11-14"),
+            dueDate: new Date("2024-11-15"),
             priority: 4,
             completed: false,
             project: "Life"
@@ -116,11 +148,17 @@ const createAndShowMockProjects = () => {
 }
 
 
+const initPage = () => {
+    displayHandler.loadFooter();
+
+
+    displayHandler.loadSidebar();
+    logicInterface.addPriorityFilter();
+
+    createAndShowMockTasks();
+    createAndShowMockProjects();
+}
 
 
 
-displayHandler.loadFooter();
-displayHandler.loadSidebar();
-
-createAndShowMockTasks();
-createAndShowMockProjects();
+initPage();

@@ -106,6 +106,30 @@ const displayHandler = (function() {
         const taskCreatorWrapper = document.querySelector(".wrapper");
         taskCreatorWrapper.classList.toggle("is-open");
     }
+
+    const getTaskCreatorValues = () => {
+        const nameInput = document.querySelector("#new-task-name input");
+        const dueDateInput = document.querySelector("#new-task-date input");
+        const priorityInput = document.querySelector("#new-task-priority select");
+        const projectInput = document.querySelector("#new-task-project select");
+        const descriptionInput = document.querySelector("#new-task-description input");
+
+        const name = nameInput.value;
+        const dueDate = new Date(dueDateInput.value);
+        const priority = _priorities.findIndex(function(priority) {
+            return priority.name == priorityInput.value
+        });
+        const project = projectInput.value;
+        const description = descriptionInput.value;
+
+        return {
+            name: name,
+            dueDate: dueDate,
+            priority: priority,
+            project: project,
+            description: description
+        }
+    }
     
     const addCardaddTask = () => {
         const contentElement = document.querySelector("#content");
@@ -203,10 +227,13 @@ const displayHandler = (function() {
         priorityTitle.textContent = "Priority";
         priorityHigh.classList.add("item");
         priorityHigh.textContent = "High";
+        priorityHigh.id = "priority-high";
         priorityMedium.classList.add("item");
         priorityMedium.textContent = "Medium";
+        priorityMedium.id = "priority-medium";
         priorityLow.classList.add("item");
         priorityLow.textContent = "Low";
+        priorityLow.id = "priority-low";
 
         priorityDiv.appendChild(priorityTitle);
         priorityDiv.appendChild(priorityHigh);
@@ -238,7 +265,13 @@ const displayHandler = (function() {
 
 
     return {
-        loadFooter, loadSidebar, addProject, addTaskCard, addCardaddTask, resetTasks,
+        loadFooter,
+        loadSidebar,
+        addProject,
+        addTaskCard,
+        addCardaddTask,
+        resetTasks,
+        getTaskCreatorValues,
     }
 })();
 
