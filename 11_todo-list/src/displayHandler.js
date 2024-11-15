@@ -8,17 +8,118 @@ import veryLowSVG from "./img/very-low.svg"
 
 const displayHandler = (function() {
 
-    const _priorities = [veryLowSVG, lowSVG, mediumSVG, highSVG, veryHighSVG];
+    const _priorities = [
+        {
+            name: "very low",
+            image: veryLowSVG
+        },
+        {
+            name: "low",
+            image: lowSVG
+        },
+        {
+            name: "medium",
+            image: mediumSVG
+        },
+        {
+            name: "high",
+            image: highSVG
+        },
+        {
+            name: "very high",
+            image: veryHighSVG
+        }
+    ]
+    
+    const _setTaskCreator = () => {
+        const taskCreatorWrapper = document.createElement("div");
+        const taskCreatorForm = document.createElement("form");
+        const taskName = document.createElement("div");
+        const taskNameTitle = document.createElement("p");
+        const taskNameInput = document.createElement("input");
+        const taskDescription = document.createElement("div");
+        const taskDescriptionTitle = document.createElement("p");
+        const taskDescriptionInput = document.createElement("input");
+        const taskDate = document.createElement("div");
+        const taskDateTitle = document.createElement("p");
+        const taskDateInput = document.createElement("input");
+        const taskPriority = document.createElement("div");
+        const taskPriorityTitle = document.createElement("p");
+        const taskPriorityInput = document.createElement("select");
+        const taskProject = document.createElement("div");
+        const taskProjectTitle = document.createElement("p");
+        const taskProjectInput = document.createElement("select");
+        const taskSubmit = document.createElement("button");
 
+        for (let priority of _priorities) {
+            const priorityOption = document.createElement("option");
+            priorityOption.textContent = priority.name;
+            taskPriorityInput.appendChild(priorityOption);
+        }
+
+        const _projects = ["No project", "Work", "Life"]; // to make dynamic
+        for (let project of _projects) {
+            const projectOption = document.createElement("option");
+            projectOption.textContent = project;
+            taskProjectInput.appendChild(projectOption);
+        }
+
+        taskCreatorWrapper.classList.add("wrapper");
+        taskName.id = "new-task-name";
+        taskNameTitle.textContent = "Task name";
+        taskDescription.id = "new-task-description";
+        taskDescriptionTitle.textContent = "Description";
+        taskDate.id = "new-task-date";
+        taskDateTitle.textContent = "Date";
+        taskDateInput.type = "date";
+        taskPriority.id = "new-task-priority";
+        taskPriorityTitle.textContent = "Priority";
+        taskProject.id = "new-task-project";
+        taskProjectTitle.textContent = "Project";
+        taskSubmit.textContent = "Add task";
+
+
+        taskName.appendChild(taskNameTitle);
+        taskName.appendChild(taskNameInput);
+        taskDescription.appendChild(taskDescriptionTitle);
+        taskDescription.appendChild(taskDescriptionInput);
+        taskDate.appendChild(taskDateTitle);
+        taskDate.appendChild(taskDateInput);
+        taskPriority.appendChild(taskPriorityTitle);
+        taskPriority.appendChild(taskPriorityInput);
+        taskProject.appendChild(taskProjectTitle);
+        taskProject.appendChild(taskProjectInput);
+
+        taskCreatorForm.appendChild(taskName)
+        taskCreatorForm.appendChild(taskDescription);
+        taskCreatorForm.appendChild(taskDate);
+        taskCreatorForm.appendChild(taskPriority);
+        taskCreatorForm.appendChild(taskProject);
+        taskCreatorForm.appendChild(taskSubmit);
+
+        taskCreatorWrapper.appendChild(taskCreatorForm);
+
+        return taskCreatorWrapper;
+    }
+
+    const _toggleTaskCreator = () => {
+        const taskCreatorWrapper = document.querySelector(".wrapper");
+        taskCreatorWrapper.classList.toggle("is-open");
+    }
+    
     const addCardaddTask = () => {
         const contentElement = document.querySelector("#content");
         const addTaskCard = document.createElement("div");
         const addTaskTitle = document.createElement("p");
+        const taskCreator = _setTaskCreator();
 
         addTaskTitle.textContent = "+ Add new task";
-        addTaskCard.id = "task-new";
+        addTaskCard.classList.add("task-new");
+
+        addTaskTitle.addEventListener("click", _toggleTaskCreator)
 
         addTaskCard.appendChild(addTaskTitle);
+        addTaskCard.appendChild(taskCreator);
         contentElement.appendChild(addTaskCard);
     }
 
@@ -39,9 +140,9 @@ const displayHandler = (function() {
         taskName.classList.add("task-name");
         taskName.textContent = name;
         taskDate.classList.add("task-date");
-        taskDate.textContent = date;
+        taskDate.textContent = date.toLocaleDateString();
         taskPriority.classList.add("task-priority");
-        taskPriority.src = _priorities[priority];
+        taskPriority.src = _priorities[priority].image;
         taskDelete.classList.add("task-delete");
         taskDelete.src = deleteSVG;
         taskDelete.alt = "Delete trash sign"
@@ -69,6 +170,11 @@ const displayHandler = (function() {
         projectDiv.appendChild(projectName);
         projectDiv.appendChild(projectDelete);
         addProject.before(projectDiv);
+    }
+
+    const resetTasks = () => {
+        const contentElement = document.querySelector("#content");
+        contentElement.innerHTML = ""; 
     }
     
     const loadSidebar = () => {
@@ -132,7 +238,7 @@ const displayHandler = (function() {
 
 
     return {
-        loadFooter, loadSidebar, addProject, addTaskCard, addCardaddTask,
+        loadFooter, loadSidebar, addProject, addTaskCard, addCardaddTask, resetTasks,
     }
 })();
 

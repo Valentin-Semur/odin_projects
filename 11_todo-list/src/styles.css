@@ -30,9 +30,11 @@ body {
     overflow-y: auto;
 }
 
-.task-card, #task-new {
+.task-card, .task-new {
     margin: 20px;
     padding: 10px;
+
+
 }
 
 .task-card {
@@ -43,7 +45,7 @@ body {
     color: var(--neutral);
 }
 
-#task-new {
+.task-new {
     background-color: var(--secondary-light);
     color: var(--primary-dark);
 }
@@ -64,6 +66,61 @@ body {
 .task-delete:active {
     filter: invert(61%) sepia(13%) saturate(6207%) hue-rotate(347deg) brightness(78%) contrast(84%);
     cursor: pointer;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+}
+
+.wrapper.is-open {
+    grid-template-rows: 1fr;
+}
+
+form {
+    overflow: hidden;
+
+    display: grid;
+    grid-template: repeat(4, 1fr) / 3fr 1fr;
+    column-gap: 30px;
+}
+
+#new-task-name, #new-task-date, #new-task-priority, #new-task-project {
+    margin: 10px 0px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px
+}
+
+#new-task-name input {
+    flex: 1;
+}
+
+#new-task-date p, #new-task-priority p, #new-task-project p {
+    flex: 1;
+}
+
+#new-task-date input, #new-task-priority select, #new-task-project select {
+    flex: 3;
+
+}
+
+#new-task-description {
+    grid-area: 2 / 1 / 5 / 2;
+    margin: 10px 0px 0px 10px;
+}
+
+#new-task-description input {
+    width: 100%;
+    height: 50%;
+}
+
+form button {
+    width: 100%;
+    height: 70%;
+    justify-self: end;
+    align-self: center;
 }
 
 #sidebar {

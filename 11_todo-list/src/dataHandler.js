@@ -7,6 +7,7 @@ const dataHandler = (function() {
         let _description = "";
         let _priority = 2;
         let _completed = false;
+        let _project;
     
         return {
             getName () {
@@ -56,6 +57,14 @@ const dataHandler = (function() {
                 }
                 return this;
             },
+
+            getProject () {
+                return _project;
+            },
+            setProject (project) {
+                _project = project;
+                return this;
+            },
     
             getTaskDetails () {
                 return `Task: { name: "${this.getName()}", dueDate: ${this.getDueDate()}, description: "${this.getDescription()}", priority: ${this.getPriority()}, isCompleted: ${this.isCompleted()} }`;
@@ -67,7 +76,6 @@ const dataHandler = (function() {
 
     const projectFactory = () => {
         let _name;
-        let _tasks = [];
     
         return {
             getName () {
@@ -77,16 +85,8 @@ const dataHandler = (function() {
                 _name = name;
                 return this;
             },
-    
-            getAllTasks () {
-                return _tasks;
-            },
-            addNewTask (task) {
-                _tasks.push(task)
-            },
         };
     };
-
     return {
         taskFactory, projectFactory,
     }
