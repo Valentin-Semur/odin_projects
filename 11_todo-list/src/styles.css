@@ -30,16 +30,22 @@ body {
     overflow-y: auto;
 }
 
-.task-card {
-    display: flex;
+.task-card, #task-new {
     margin: 20px;
     padding: 10px;
+}
+
+.task-card {
+    display: flex;
     gap: 10px;
     
     background-color: var(--primary-dark);
     color: var(--neutral);
+}
 
-    
+#task-new {
+    background-color: var(--secondary-light);
+    color: var(--primary-dark);
 }
 
 .task-date {

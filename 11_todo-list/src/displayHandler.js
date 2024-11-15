@@ -1,10 +1,26 @@
 import githubSVG from "./img/github.svg"
 import deleteSVG from "./img/delete.svg"
+import veryHighSVG from "./img/very-high.svg"
 import highSVG from "./img/high.svg"
 import mediumSVG from "./img/medium.svg"
 import lowSVG from "./img/low.svg"
+import veryLowSVG from "./img/very-low.svg"
 
 const displayHandler = (function() {
+
+    const _priorities = [veryLowSVG, lowSVG, mediumSVG, highSVG, veryHighSVG];
+
+    const addCardaddTask = () => {
+        const contentElement = document.querySelector("#content");
+        const addTaskCard = document.createElement("div");
+        const addTaskTitle = document.createElement("p");
+
+        addTaskTitle.textContent = "+ Add new task";
+        addTaskCard.id = "task-new";
+
+        addTaskCard.appendChild(addTaskTitle);
+        contentElement.appendChild(addTaskCard);
+    }
 
     const addTaskCard = (completed, name, date, priority) => {
         const contentElement = document.querySelector("#content");
@@ -25,17 +41,10 @@ const displayHandler = (function() {
         taskDate.classList.add("task-date");
         taskDate.textContent = date;
         taskPriority.classList.add("task-priority");
+        taskPriority.src = _priorities[priority];
         taskDelete.classList.add("task-delete");
         taskDelete.src = deleteSVG;
         taskDelete.alt = "Delete trash sign"
-
-        if (priority === 1) {
-            taskPriority.src = highSVG;
-        } else if (priority === 2) {
-            taskPriority.src = mediumSVG;
-        } else if (priority === 3) {
-            taskPriority.src = lowSVG;
-        }
 
         taskCard.appendChild(taskComplete);
         taskCard.appendChild(taskName);
@@ -123,7 +132,7 @@ const displayHandler = (function() {
 
 
     return {
-        loadFooter, loadSidebar, addProject, addTaskCard,
+        loadFooter, loadSidebar, addProject, addTaskCard, addCardaddTask,
     }
 })();
 

@@ -1,18 +1,19 @@
 const dataHandler = (function() {
 
     const taskFactory = () => {
-        let _title;
+        let id = crypto.randomUUID();
+        let _name;
         let _dueDate;
         let _description = "";
-        let _priority = 0;
+        let _priority = 2;
         let _completed = false;
     
         return {
-            getTitle () {
-                return _title;
+            getName () {
+                return _name;
             },
-            setTitle (title) {
-                _title = title;
+            setName (name) {
+                _name = name;
                 return this;
             },
     
@@ -57,8 +58,10 @@ const dataHandler = (function() {
             },
     
             getTaskDetails () {
-                return `Task: { title: "${this.getTitle()}", dueDate: ${this.getDueDate()}, description: "${this.getDescription()}", priority: ${this.getPriority()}, isCompleted: ${this.isCompleted()} }`;
+                return `Task: { name: "${this.getName()}", dueDate: ${this.getDueDate()}, description: "${this.getDescription()}", priority: ${this.getPriority()}, isCompleted: ${this.isCompleted()} }`;
             },
+
+            id,
         };
     };
 
