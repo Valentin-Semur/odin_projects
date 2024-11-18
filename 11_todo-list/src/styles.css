@@ -135,12 +135,12 @@ form button {
     font-size: larger;
 }
 
-#sidebar p:hover {
+#sidebar .clickable:hover {
     color: var(--secondary-light);
     cursor: pointer;
 }
 
-#sidebar p:active {
+#sidebar .clickable:active {
     color: var(--secondary-dark);
     cursor: pointer;
     user-select: none;
@@ -149,6 +149,23 @@ form button {
 #sidebar div.item {
     display: flex;
 }
+
+#sidebar .hidden {
+    visibility: hidden;
+}
+
+#add-project-input {
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    height: 55px;
+}
+
+#add-project-input input {
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+
+
 
 #delete-icon {
     height: 20px;

@@ -106,8 +106,21 @@ const logicInterface = (function() {
         low.addEventListener("click", () => {showAllTasks(undefined, "low", undefined)})
     }
 
+    const createAddProjectListener = () => {
+        const addProjectDiv = document.querySelector("#add-project");
+        addProjectDiv.addEventListener("click", displayHandler.showAddProjectInput);
+    }
+
     return {
-        showTask, showProject, showAllTasks, showAllProjects, initAddTaskOption, addPriorityFilter, TASKS, PROJECTS
+        showTask,
+        showProject,
+        showAllTasks,
+        showAllProjects,
+        initAddTaskOption,
+        addPriorityFilter,
+        createAddProjectListener,
+        TASKS,
+        PROJECTS
     }
 
 })();
@@ -177,7 +190,7 @@ const initPage = () => {
 
     createAndShowMockProjects();
     createAndShowMockTasks();
-    
+    logicInterface.createAddProjectListener();
 }
 
 

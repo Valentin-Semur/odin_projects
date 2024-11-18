@@ -188,13 +188,46 @@ const displayHandler = (function() {
         projectDiv.classList.add("item");
         projectName.textContent = name;
         projectName.id = `id-${name}`;
+        projectName.classList.add("clickable");
         projectDelete.id = "delete-icon";
         projectDelete.src = deleteSVG;
         projectDelete.alt = "Delete trash sign";
+        projectDelete.classList.add("clickable");
 
         projectDiv.appendChild(projectName);
         projectDiv.appendChild(projectDelete);
         addProject.before(projectDiv);
+    }
+
+    const showAddProjectInput = () => {
+        const projectContainer = document.querySelector("#projects");
+        console.log(projectContainer)
+        const addProjectDiv = projectContainer.lastChild;
+        addProjectDiv.remove();
+
+        
+        const addProjectInputContainer = document.createElement("form");
+        const addProjectInput = document.createElement("input");
+        const cancelBtn = document.createElement("button");
+        const submitBtn = document.createElement("button");
+    
+        addProjectInputContainer.id = "add-project-input";
+        cancelBtn.textContent = "Cancel";
+        submitBtn.textContent = "Submit";
+
+        addProjectInputContainer.appendChild(addProjectInput);
+        addProjectInputContainer.appendChild(cancelBtn);
+        addProjectInputContainer.appendChild(submitBtn);
+        projectContainer.appendChild(addProjectInputContainer);
+    }
+
+    const createAddProjectDiv = () => {
+        const addProject = document.createElement("p");
+        addProject.classList.add("item");
+        addProject.id = "add-project";
+        addProject.classList.add("clickable");
+        addProject.textContent = "+ Add project";
+        return addProject
     }
 
     const resetTasks = () => {
@@ -215,33 +248,35 @@ const displayHandler = (function() {
         const todayTitle = document.createElement("p");
         const projectDiv = document.createElement("div");
         const projectTitle = document.createElement("p");
-        const addProject = document.createElement("p");
         const priorityDiv = document.createElement("div");
         const priorityTitle = document.createElement("p");
         const priorityHigh = document.createElement("p");
         const priorityMedium = document.createElement("p");
         const priorityLow = document.createElement("p");
+        const addProject = createAddProjectDiv();
 
         inboxTitle.textContent = "Inbox";
+        inboxTitle.classList.add("clickable");
         todayTitle.textContent = "Today";
+        todayTitle.classList.add("clickable");
         projectDiv.id = "projects";
         projectTitle.classList.add("title");
         projectTitle.textContent = "Projects";
-        addProject.classList.add("item");
-        addProject.id = "add-project";
-        addProject.textContent = "+ Add project";
         priorityDiv.id = "priorities";
         priorityTitle.classList.add("title");
         priorityTitle.textContent = "Priority";
         priorityHigh.classList.add("item");
         priorityHigh.textContent = "High";
         priorityHigh.id = "priority-high";
+        priorityHigh.classList.add("clickable");
         priorityMedium.classList.add("item");
         priorityMedium.textContent = "Medium";
         priorityMedium.id = "priority-medium";
+        priorityMedium.classList.add("clickable");
         priorityLow.classList.add("item");
         priorityLow.textContent = "Low";
         priorityLow.id = "priority-low";
+        priorityLow.classList.add("clickable");
 
         priorityDiv.appendChild(priorityTitle);
         priorityDiv.appendChild(priorityHigh);
@@ -281,6 +316,7 @@ const displayHandler = (function() {
         resetTasks,
         resetProjects,
         getTaskCreatorValues,
+        showAddProjectInput,
     }
 })();
 
