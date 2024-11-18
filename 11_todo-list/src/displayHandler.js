@@ -57,10 +57,10 @@ const displayHandler = (function() {
             taskPriorityInput.appendChild(priorityOption);
         }
 
-        const _projects = ["No project", "Work", "Life"]; // to make dynamic
-        for (let project of _projects) {
+        const projectList = document.querySelectorAll("#projects div");
+        for (let project of projectList) {
             const projectOption = document.createElement("option");
-            projectOption.textContent = project;
+            projectOption.textContent = project.textContent;
             taskProjectInput.appendChild(projectOption);
         }
 
@@ -187,6 +187,7 @@ const displayHandler = (function() {
 
         projectDiv.classList.add("item");
         projectName.textContent = name;
+        projectName.id = `id-${name}`;
         projectDelete.id = "delete-icon";
         projectDelete.src = deleteSVG;
         projectDelete.alt = "Delete trash sign";
@@ -199,6 +200,13 @@ const displayHandler = (function() {
     const resetTasks = () => {
         const contentElement = document.querySelector("#content");
         contentElement.innerHTML = ""; 
+    }
+
+    const resetProjects = () => {
+        const projects = document.querySelectorAll("#projects div")
+        for (let project of projects) {
+            project.remove()
+        }
     }
     
     const loadSidebar = () => {
@@ -271,6 +279,7 @@ const displayHandler = (function() {
         addTaskCard,
         addCardaddTask,
         resetTasks,
+        resetProjects,
         getTaskCreatorValues,
     }
 })();

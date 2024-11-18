@@ -7,6 +7,7 @@ const logicInterface = (function() {
 
     let TASKS = [];
     let PROJECTS = [];
+    let CURRENT_PAGE;
 
     const initAddTaskOption = () => {
         displayHandler.addCardaddTask();
@@ -26,6 +27,19 @@ const logicInterface = (function() {
 
     const showProject = (project) => {
         displayHandler.addProject(project.getName());
+        const projectDiv = document.querySelector(`#id-${project.getName()}`);
+        projectDiv.addEventListener("click", () => {showAllTasks(project.getName(), undefined, undefined)})
+        const projectDelete = projectDiv.nextElementSibling;
+        projectDelete.addEventListener("click", () => {removeProject(project)});
+    }
+
+    const removeProject = (projectToRemove) => {
+        const updatedProjects = PROJECTS.filter(function(project) {
+            return project !== projectToRemove;
+        })
+        PROJECTS = updatedProjects;
+        showAllProjects();
+        showAllTasks();
     }
 
     const _isNotInPriorityFilter = (priority, filter) => {
@@ -43,7 +57,7 @@ const logicInterface = (function() {
         return date.toLocaleString().split(',')[0] != new Date().toLocaleString().split(',')[0]
     }
 
-    const showAllTasks = (projectFilter, priorityFilter, todayFilter) => { // add filter intelligence
+    const showAllTasks = (projectFilter, priorityFilter, todayFilter) => {
         displayHandler.resetTasks();
         
         for (let task of TASKS) {
@@ -59,6 +73,13 @@ const logicInterface = (function() {
         }
 
         initAddTaskOption();
+    }
+
+    const showAllProjects = () => {
+        displayHandler.resetProjects();
+        for (let project of PROJECTS) {
+            showProject(project);
+        }
     }
 
     const addTaskFromForm = (e) => {
@@ -83,12 +104,10 @@ const logicInterface = (function() {
         high.addEventListener("click", () => {showAllTasks(undefined, "high", undefined)})
         medium.addEventListener("click", () => {showAllTasks(undefined, "medium", undefined)})
         low.addEventListener("click", () => {showAllTasks(undefined, "low", undefined)})
-
-        console.log(high)
     }
 
     return {
-        showTask, showProject, showAllTasks, initAddTaskOption, addPriorityFilter, TASKS, PROJECTS
+        showTask, showProject, showAllTasks, showAllProjects, initAddTaskOption, addPriorityFilter, TASKS, PROJECTS
     }
 
 })();
@@ -143,8 +162,9 @@ const createAndShowMockProjects = () => {
         const project = dataHandler.projectFactory()
             .setName(mockProject)
 
-        logicInterface.showProject(project);
+        logicInterface.PROJECTS.push(project);
     }
+    logicInterface.showAllProjects();
 }
 
 
@@ -155,8 +175,9 @@ const initPage = () => {
     displayHandler.loadSidebar();
     logicInterface.addPriorityFilter();
 
-    createAndShowMockTasks();
     createAndShowMockProjects();
+    createAndShowMockTasks();
+    
 }
 
 
