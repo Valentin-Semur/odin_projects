@@ -204,7 +204,6 @@ const displayHandler = (function() {
         console.log(projectContainer)
         const addProjectDiv = projectContainer.lastChild;
         addProjectDiv.remove();
-
         
         const addProjectInputContainer = document.createElement("form");
         const addProjectInput = document.createElement("input");

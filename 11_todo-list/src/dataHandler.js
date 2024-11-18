@@ -87,6 +87,7 @@ const dataHandler = (function() {
             },
         };
     };
+    
     return {
         taskFactory, projectFactory,
     }
