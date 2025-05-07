@@ -1,22 +1,18 @@
 import "./styles.css";
 import config from "../config.js";
 import { convertToCelsius, convertToKmH } from "./utils.js";
-import cloudIcon from "./assets/icons/cloudy.svg";
+
+// Load icons
+const icons = require.context("./assets/icons", false, /\.svg$/);
+const weatherIcons = {};
+icons.keys().forEach(key => {
+    const iconName = key.replace("./", "").replace(/\.svg$/, '');
+    weatherIcons[iconName] = icons(key);
+});
+
 
 const apiKey = config.apiKey;
-const weatherIcons = {
-    "clear-day": '<img src="./src/assets/icons/clear-day.svg" alt="Clear Day">',
-    "clear-night": '<img src="./src/assets/icons/clear-night.svg" alt="Clear Night">',
-    "cloudy": '<img src="./src/assets/icons/cloudy.svg" alt="Cloudy">',
-    "fog": '<img src="./src/assets/icons/fog.svg" alt="Fog">',
-    "hail": '<img src="./src/assets/icons/hail.svg" alt="Hail">',
-    "partly-cloudy-day": '<img src="./src/assets/icons/partly-cloudy-day.svg" alt="Partly Cloudy Day">',
-    "partly-cloudy-night": '<img src="./src/assets/icons/partly-cloudy-night.svg" alt="Partly Cloudy Night">',
-    "rain": '<img src="./src/assets/icons/rain.svg" alt="Rain">',
-    "showers-day": '<img src="./src/assets/icons/showers-day.svg" alt="Showers Day">',
-    "snow": '<img src="./src/assets/icons/snow.svg" alt="Snow">',
-    "thunder-rain": '<img src="./src/assets/icons/thunder-rain.svg" alt="Thunder Rain">',
-};
+
 
 const fetchWeather = async (city) => {
     const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`;
@@ -36,10 +32,8 @@ const displayWeatherData = (weatherData) => {
     document.getElementById("weather-wind").textContent = `${weatherData.wind} km/h`;
     document.getElementById("weather-temperature").textContent = `${weatherData.temperature} °C`;
 
-    console.log(weatherData.icon);
-    if (weatherData.icon === 'cloudy') {
-        document.getElementById("weather-icon").innerHTML = `<img src="${cloudIcon}" alt="Cloudy">`;
-    }
+    const iconSrc = weatherIcons[weatherData.icon];
+    document.getElementById("weather-icon").innerHTML = `<img src="${iconSrc}" alt="${weatherData.icon}">`;
 }
 
 const extractWeatherData = (data) => {
