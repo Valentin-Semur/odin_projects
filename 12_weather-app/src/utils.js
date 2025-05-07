@@ -9,3 +9,11 @@ export const convertToCelsius = (temperature) => {
 export const convertToKmH = (windSpeed) => {
     return Math.round(windSpeed * 1.60934 * 10) / 10;
 }
+
+export const createElement = (tag, parent, { id = null, classes = []}) => {
+    const element = document.createElement(tag);
+    if (id) element.id = id;
+    if (classes.length > 0) classes.forEach(className => element.classList.add(className));
+    parent.appendChild(element);
+    return element;
+}

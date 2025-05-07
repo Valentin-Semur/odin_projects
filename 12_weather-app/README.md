@@ -66,10 +66,9 @@ This will generate the necessary files in the `dist` directory.
 
 ## To Do
 
+- [ ] Change grid for the weather container to make each part more autonomous
 - [ ] Add error handling for invalid city names.
 - [ ] Implement a loading spinner while fetching weather data.
-- [ ] Allow users to save favorite cities for quick access.
-- [ ] Enhance the UI with additional weather details (e.g., temperature, humidity).
 
 ## Acknowledgments
 

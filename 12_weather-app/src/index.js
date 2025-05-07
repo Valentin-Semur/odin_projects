@@ -1,6 +1,6 @@
 import "./styles.css";
 import config from "../config.js";
-import { convertToCelsius, convertToKmH } from "./utils.js";
+import { convertToCelsius, convertToKmH, createElement } from "./utils.js";
 import searchIcon from "./assets/icons/search.svg";
 
 // Load icons
@@ -19,7 +19,6 @@ const fetchWeather = async (city) => {
     const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
@@ -78,19 +77,12 @@ cityInput.addEventListener("keydown", (event) => {
     }
 });
 
+// Add search icon to the button
 document.getElementById("get-weather").innerHTML = `<img src="${searchIcon}" alt="search">`;
-console.log(document.getElementById("get-weather"));
 
-const createElement = (tag, parent, { id = null, classes = []}) => {
-    const element = document.createElement(tag);
-    if (id) element.id = id;
-    if (classes.length > 0) classes.forEach(className => element.classList.add(className));
-    parent.appendChild(element);
-    return element;
-}
 
+// Create weather container and weather divs
 const container = document.getElementById("container");
-console.log(container);
 const weatherContainer = createElement("div", container, { id: "weather-container" });
 
 const weatherDivIds = [
@@ -105,11 +97,11 @@ const weatherDivIds = [
 
 weatherDivIds.map(id => createElement("div", weatherContainer, { id: id }));
 
+// Create weather icon and temperature divs
 const createWeatherIconTemperature = () => {
     const weatherIconTemperature = createElement("div", weatherContainer, { id: "weather-icon-temperature" });
     const weatherIcon = createElement("div", weatherIconTemperature, { id: "weather-icon" });
     const weatherTemperature = createElement("div", weatherIconTemperature, { id: "weather-temperature" });
-    console.log(weatherIconTemperature);
     return weatherIconTemperature;
 }
 
@@ -119,5 +111,6 @@ createWeatherIconTemperature();
 
 // Update weather data on page load to Paris
 updateWeatherData();
-console.log(weatherContainer);
 
+// Print the DOM
+console.log(document.body);
