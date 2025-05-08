@@ -10,10 +10,14 @@ export const convertToKmH = (windSpeed) => {
     return Math.round(windSpeed * 1.60934 * 10) / 10;
 }
 
-export const createElement = (tag, parent, { id = null, classes = []}) => {
-    const element = document.createElement(tag);
-    if (id) element.id = id;
-    if (classes.length > 0) classes.forEach(className => element.classList.add(className));
-    parent.appendChild(element);
-    return element;
+// Create a div element
+export const createDiv = (id, ...classes) => {
+    const div = document.createElement("div");
+    if (id) {
+        div.id = id;
+    }
+    if (classes.length > 0) {
+        classes.forEach(className => div.classList.add(className));
+    }
+    return div;
 }
