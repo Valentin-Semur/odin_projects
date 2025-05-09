@@ -1,98 +1,71 @@
 import "./styles.css";
-import config from "./config.js";
-import { convertToCelsius, convertToKmH } from "./utils.js";
-import searchIcon from "./assets/icons/search.svg";
 import { buildWeatherWidgetDOM } from "./weatherWidgetBuilder.js";
+import { getProcessedWeatherData } from "./weatherService.js";
+import { displayWeatherData, setLoadingState, initStaticUI } from "./uiUpdater.js";
+import config from "./config.js";
 
-// Load icons
-const icons = require.context("./assets/weather-icons", false, /\.svg$/);
-const weatherIcons = {};
-icons.keys().forEach(key => {
-    const iconName = key.replace("./", "").replace(/\.svg$/, '');
-    weatherIcons[iconName] = icons(key);
-});
+document.addEventListener("DOMContentLoaded", () => {
+    // --- DOM Element References ---
+    // It's good practice to get references to frequently used DOM elements once.
+    // These are for the input form, not part of the dynamically built widget.
+    const cityInputElement = document.getElementById("city-input");
+    const getWeatherButtonElement = document.getElementById("get-weather");
 
-
-const apiKey = config.apiKey;
-
-// Fetch weather data from the API
-const fetchWeather = async (city) => {
-    const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`;
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
-}
-
-// Display weather data on the page (update the DOM)
-const displayWeatherData = (weatherData) => {
-    document.getElementById("weather-temperature").textContent = `${weatherData.temperature} °C`;
-    document.getElementById("weather-description").textContent = weatherData.description;
-    document.getElementById("weather-location").textContent = weatherData.location;
-    document.getElementById("weather-short-description").textContent = weatherData.shortDescription;
-    document.getElementById("weather-datetime").textContent = weatherData.datetime;
-
-    document.querySelector("#weather-precipitation .data").textContent = `${weatherData.precipitation} %`;   
-    document.querySelector("#weather-humidity .data").textContent = `${weatherData.humidity} %`;
-    document.querySelector("#weather-wind .data").textContent = `${weatherData.wind} km/h`;
-    
-    const iconSrc = weatherIcons[weatherData.icon];
-    document.getElementById("weather-icon").innerHTML = `<img src="${iconSrc}" alt="${weatherData.icon}">`;
-}
-
-// Extract weather data from the API response
-const extractWeatherData = (data) => {
-    const { currentConditions, resolvedAddress } = data;
-    const { temp, conditions, datetime, precipprob, windspeed, humidity, icon } = currentConditions;
-
-    const weatherData = {
-        temperature: convertToCelsius(temp),
-        description: data.description,
-        location: resolvedAddress,
-        shortDescription: conditions,
-        datetime: datetime,
-        precipitation: precipprob,
-        humidity: humidity,
-        wind: convertToKmH(windspeed),
-        icon: icon,
+    if (!cityInputElement || !getWeatherButtonElement) {
+        console.error("Essential UI elements (city input, get weather button) are missing from the DOM. App cannot initialize.");
+        return;
     }
-    return weatherData;
-}
 
-// Update weather data
-const updateWeatherData = async () => {
-    const defaultCity = "Paris";
-    const city = document.getElementById("city-input").value || defaultCity;
-    const data = await fetchWeather(city);
-    const weatherData = extractWeatherData(data);
+    // --- Build and Append Weather Widget ---
+    // This creates the structure of the weather display area.
+    const weatherWidgetElement = buildWeatherWidgetDOM();
+    document.body.appendChild(weatherWidgetElement);
 
-    displayWeatherData(weatherData);
-}
+    // --- Initialize Static UI Parts ---
+    // e.g., setting the search icon on the button.
+    initStaticUI();
 
-// Event listeners
-const getWeatherButton = document.getElementById("get-weather");
-getWeatherButton.addEventListener("click", updateWeatherData); 
+    // --- Core Weather Update Function ---
+    async function handleWeatherUpdateRequest() {
+        const city = cityInputElement.value.trim() || config.defaultCity;
+        if (!city) {
+            // Optionally display a message to the user to enter a city
+            console.warn("City input is empty, using default city.");
+            // cityInputElement.value = config.defaultCity; // Or, just proceed with default
+        }
 
-const cityInput = document.getElementById("city-input");
-cityInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        updateWeatherData();
+        setLoadingState(true); // Show loading indicator
+
+        try {
+            const weatherData = await getProcessedWeatherData(city);
+            displayWeatherData(weatherData, weatherWidgetElement); // Pass the widget element
+            await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for 3s seconds to simulate loading
+        } catch (error) {
+            // This catch is more for unexpected errors in the flow itself.
+            // getProcessedWeatherData should ideally handle its own errors and return null.
+            console.error("An unexpected error occurred during weather update:", error);
+            displayWeatherData(null, weatherWidgetElement); // Display error state in UI
+        } finally {
+            setLoadingState(false); // Hide loading indicator regardless of success/failure
+        }
     }
+
+    // --- Event Listeners ---
+    getWeatherButtonElement.addEventListener("click", handleWeatherUpdateRequest);
+
+    cityInputElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent form submission if it's part of a form
+            handleWeatherUpdateRequest();
+        }
+    });
+
+    // --- Initial Weather Data Load ---
+    // Set a default city in the input for the initial load if desired
+    if (!cityInputElement.value) {
+        cityInputElement.value = config.defaultCity;
+    }
+    handleWeatherUpdateRequest(); // Load weather for the default or pre-filled city
+
+    console.log("Weather application initialized.");
 });
-
-// Add search icon to the button
-document.getElementById("get-weather").innerHTML = `<img src="${searchIcon}" alt="search">`;
-
-const weatherWidgetDOM = buildWeatherWidgetDOM();
-document.body.appendChild(weatherWidgetDOM);
-
-
-
-
-// Update weather data on page load to Paris
-updateWeatherData();
-console.log(document.body); 
-// Print the DOM
-
-
-
-

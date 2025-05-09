@@ -44,7 +44,7 @@ const buildTopContainer = () => {
     topContainer.appendChild(topRightContainer);
 
     return topContainer;
-}
+} 
 
 const buildWeatherDetailContainer = (id, label) => {
     const weatherDetailContainer = createDiv(id);
