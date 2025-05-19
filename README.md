@@ -35,3 +35,5 @@ Pixel art board inspired by the old Etch-a-sketch
 - [Library](https://valentin-semur.github.io/odin_projects/08_library/)
 - [Tic-Tac-Toe](https://valentin-semur.github.io/odin_projects/09_tic-tac-toe/)
 - [Restaurant page](https://valentin-semur.github.io/odin_projects/10_restaurant-page/dist/)
+- [Todo List] - Not finished yet
+- [Weather app](https://valentin-semur.github.io/odin_projects/12_weather-app/dist/)
