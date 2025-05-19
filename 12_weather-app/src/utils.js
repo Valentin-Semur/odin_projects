@@ -39,5 +39,5 @@ export const createDiv = (id, ...classes) => {
 // Format epoch to weekday HH:mm
 export const formatEpochToWeekdayHHmm = (epoch) => {
     const date = new Date(epoch * 1000);
-    return date.toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }

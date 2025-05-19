@@ -1,76 +1,106 @@
 # Weather App
 
-A simple weather application that allows users to enter a city name and retrieve the current weather conditions using the Visual Crossing Weather API.
+A modern weather application that provides real-time weather information using the Visual Crossing Weather API. Built with vanilla JavaScript and modern web development tools.
 
 ## Features
 
-- Input field for entering the city name
-- Fetches and displays the current weather description
-- Responsive design with basic styling
+- Real-time weather data fetching for any city
+- Displays comprehensive weather information including:
+  - Current temperature (in Celsius)
+  - Weather conditions and description
+  - Precipitation probability
+  - Humidity levels
+  - Wind speed (in km/h)
+  - Location details
+- Responsive and modern UI design
+- Loading states for better user experience
+- Error handling for failed API requests
+- Support for both click and Enter key to submit
+- Default city fallback
 
 ## Technologies Used
 
-- HTML
-- CSS
-- JavaScript
-- Webpack
+- HTML5
+- CSS3
+- Vanilla JavaScript (ES6+)
+- Webpack 5 for module bundling
+- ESLint and Prettier for code quality
 - Visual Crossing Weather API
+
+## Project Structure
+
+```
+weather-app/
+├── src/
+│   ├── assets/         # Static assets
+│   ├── index.js        # Main application entry
+│   ├── weatherService.js    # API and data handling
+│   ├── uiUpdater.js    # UI state management
+│   ├── weatherWidgetBuilder.js  # DOM structure
+│   ├── utils.js        # Utility functions
+│   ├── config.js       # Configuration
+│   ├── styles.css      # Styling
+│   └── template.html   # HTML template
+├── webpack.common.js   # Shared webpack config
+├── webpack.dev.js      # Development config
+├── webpack.prod.js     # Production config
+└── package.json        # Project dependencies
+```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed on your machine.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
 ### Installation
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/Valentin-Semur/learn/the_odin_project/odin_projects/12_weather-app.git
    ```
 
 2. Navigate to the project directory:
-
    ```bash
    cd 12_weather-app
    ```
 
-3. Install the dependencies:
-
+3. Install dependencies:
    ```bash
    npm install
    ```
 
-### Usage
-
-1. Start the development server:
-
-   ```bash
-   npm run start
+4. Create a `config.js` file in the root directory and add your Visual Crossing API key:
+   ```
+   const config = {
+    apiKey: '',
+    apiUrl: 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/',
+    defaultCity: 'Paris',
+};
    ```
 
-2. Open your browser and go to `http://localhost:8080` to view the app.
+### Development
 
-3. Enter a city name in the input field and click the "Get Weather" button to see the current weather description.
+To start the development server with hot reloading:
 
-### Build
+```bash
+npm run start
+```
 
-To create a production build of the application, run:
+The application will be available at `http://localhost:8080`
+
+### Production Build
+
+To create an optimized production build:
 
 ```bash
 npm run build
 ```
 
-This will generate the necessary files in the `dist` directory.
+The build output will be in the `dist` directory.
 
-## To Do
-
-- [ ] Change grid for the weather container to make each part more autonomous
-- [ ] Add error handling for invalid city names.
-- [ ] Implement a loading spinner while fetching weather data.
 
 ## Acknowledgments
 
-- [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api) for providing the weather data.
-- [Webpack](https://webpack.js.org/) for module bundling.
+- [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api) for providing the weather data
