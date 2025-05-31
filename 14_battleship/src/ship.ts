@@ -1,13 +1,11 @@
-import "./styles.css";
-
-interface IShip {
+export interface IShip {
 	readonly length: number;
 	getHits(): number;
 	hit(): void;
 	isSunk(): boolean;
 }
 
-const Ship = (length: number): IShip => {
+export const Ship = (length: number): IShip => {
 	if (length <= 0) {
 		throw new Error("Ship length must be a postive number");
 	}
