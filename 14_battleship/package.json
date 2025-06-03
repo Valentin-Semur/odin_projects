@@ -1,22 +1,24 @@
 {
-  "name": "template_typescript",
-  "version": "0.0.1",
-  "type": "module",
-  "module": "src/index.ts",
-  "private": true,
-  "scripts": {
-    "dev": "bun run ./src/index.ts",
-    "build": "bun build ./src/template.html --outdir ./dist",
-    "start": "bun run ./dist/template.html",
-    "test": "bun test",
-    "test:watch": "bun test --watch",
-    "lint": "biome check --write ./src ./tests",
-    "format": "biome format --write ./src ./tests",
-    "check": "biome check ./src ./tests"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/bun": "latest",
-    "typescript": "^5"
-  }
+	"name": "template_typescript",
+	"version": "0.0.1",
+	"type": "module",
+	"module": "src/index.ts",
+	"private": true,
+	"scripts": {
+		"dev": "bun run ./src/template.html",
+		"build": "bun build ./src/template.html --outdir ./dist",
+		"start": "bun run ./dist/template.html",
+		"test": "bun test",
+		"test:watch": "bun test --watch",
+		"lint": "biome check --write ./src ./tests",
+		"format": "biome format --write ./src ./tests",
+		"check": "biome check ./src ./tests"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@tailwindcss/cli": "^4.1.8",
+		"@types/bun": "latest",
+		"tailwindcss": "^4.1.8",
+		"typescript": "^5.8.3"
+	}
 }

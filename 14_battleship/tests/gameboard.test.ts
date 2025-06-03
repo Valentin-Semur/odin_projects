@@ -21,8 +21,8 @@ describe("Gameboard", () => {
 		const anotherShip = Ship(2);
 		expect(testBoard.placeShip(anotherShip, 4, 4, "vertical")).toBeTrue();
 		const grid = testBoard.getGridRepresentation();
-		expect(grid[0]![0]!.hasShip).toBeTrue();
-		expect(grid[0]![2]!.hasShip).toBeTrue();
+		expect(grid?.[0]?.[0]?.hasShip).toBeTrue();
+		expect(grid?.[0]?.[2]?.hasShip).toBeTrue();
 	});
 
 	it("should return the situation when receiving an attack", () => {

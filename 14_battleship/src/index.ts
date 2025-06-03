@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./output.css";
 import { Gameboard } from "./gameboard";
 import { Ship } from "./ship";
 
