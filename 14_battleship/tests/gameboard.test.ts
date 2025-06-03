@@ -1,10 +1,6 @@
-import { beforeEach, describe, expect, it, test } from "bun:test";
-import {
-	type BoardCell,
-	Gameboard,
-	type IGameboard,
-} from "../src/gameboard.ts";
-import { type IShip, Ship } from "../src/ship.ts";
+import { beforeEach, describe, expect, it } from "bun:test";
+import { type BoardCell, Gameboard, type IGameboard } from "../src/gameboard";
+import { type IShip, Ship } from "../src/ship";
 
 describe("Gameboard", () => {
 	let testBoard: IGameboard;

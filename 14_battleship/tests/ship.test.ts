@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "bun:test";
-import { type IShip, Ship } from "../src/ship.ts";
+import { type IShip, Ship } from "../src/ship";
 
 describe("Ship", () => {
 	const shipLength = 3;

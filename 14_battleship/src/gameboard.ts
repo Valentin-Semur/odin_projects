@@ -1,4 +1,4 @@
-import type { IShip } from "./ship.ts";
+import type { IShip } from "./ship";
 
 export interface BoardCell {
 	ship?: IShip;
