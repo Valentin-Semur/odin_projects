@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test } from "bun:test";
+import { beforeEach, describe, expect, it } from "bun:test";
 import { type IShip, Ship } from "../src/ship.ts";
 
 describe("Ship", () => {

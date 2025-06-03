@@ -1,37 +1,28 @@
 import "./styles.css";
+import { Gameboard } from "./gameboard";
+import { Ship } from "./ship";
 
-interface IShip {
-	readonly length: number;
-	getHits(): number;
-	hit(): void;
-	isSunk(): boolean;
+const myBoard = Gameboard(10, 10);
+const patrolBoat = Ship(2);
+
+if (myBoard.placeShip(patrolBoat, 0, 0, "horizontal")) {
+	console.log("Patrol boat placed.");
+} else {
+	console.log("Failed to place patrol boat.");
 }
 
-const Ship = (length: number): IShip => {
-	if (length <= 0) {
-		throw new Error("Ship length must be a postive number");
-	}
+console.log(myBoard.receiveAttack(0, 0)); // HIT
+console.log(myBoard.receiveAttack(0, 0)); // ALREADY_SHOT
+console.log(myBoard.receiveAttack(5, 5)); // MISS
 
-	let currentHits = 0;
+const cellState = myBoard.getCellStatus(0, 0);
+if (cellState) {
+	console.log(
+		`Cell (0,0) isShot: ${cellState.isShot}, Ship present: ${!!cellState.ship}`,
+	);
+}
+console.log(`All ships sunk: ${myBoard.areAllShipsSunk()}`);
 
-	const hit = (): void => {
-		if (currentHits < length) {
-			currentHits += 1;
-		}
-	};
-
-	const getHits = (): number => {
-		return currentHits;
-	};
-
-	const isSunk = (): boolean => {
-		return currentHits >= length;
-	};
-
-	return {
-		length,
-		getHits,
-		hit,
-		isSunk,
-	};
-};
+console.log(myBoard.receiveAttack(0, 1));
+console.log(`All ships sunk: ${myBoard.areAllShipsSunk()}`);
+console.log(myBoard.getCellStatus(0, 1));
