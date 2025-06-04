@@ -1,28 +1,13 @@
 import "./output.css";
-import { Gameboard } from "./gameboard";
-import { Ship } from "./ship";
+import { createGrids, placeShips } from "./userInterface";
+import { Player } from "./player";
 
-const myBoard = Gameboard(10, 10);
-const patrolBoat = Ship(2);
+createGrids();
+const humanPlayer = Player("1", "Valentin", "human");
+const computerPlayer = Player("2", "Computer", "computer");
+placeShips(humanPlayer);
+placeShips(computerPlayer);
 
-if (myBoard.placeShip(patrolBoat, 0, 0, "horizontal")) {
-	console.log("Patrol boat placed.");
-} else {
-	console.log("Failed to place patrol boat.");
-}
 
-console.log(myBoard.receiveAttack(0, 0)); // HIT
-console.log(myBoard.receiveAttack(0, 0)); // ALREADY_SHOT
-console.log(myBoard.receiveAttack(5, 5)); // MISS
-
-const cellState = myBoard.getCellStatus(0, 0);
-if (cellState) {
-	console.log(
-		`Cell (0,0) isShot: ${cellState.isShot}, Ship present: ${!!cellState.ship}`,
-	);
-}
-console.log(`All ships sunk: ${myBoard.areAllShipsSunk()}`);
-
-console.log(myBoard.receiveAttack(0, 1));
-console.log(`All ships sunk: ${myBoard.areAllShipsSunk()}`);
-console.log(myBoard.getCellStatus(0, 1));
+console.log(humanPlayer.gameboard.getGridRepresentation());
+console.log(computerPlayer.gameboard.getGridRepresentation());

@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link href="./output.css" ref="stylesheet">
+	<link href="output.css" rel="stylesheet">
 </head>
-<body>
-    <div id="app-root">
-		<h1 class="font-bold underline text-3xl">yo</h1>
+<body class="min-h-screen bg-[url('./assets/ocean.png')] bg-cover bg-center bg-no-repeat text-white p-10">
+    <div id="container" class="m-auto max-w-6xl p-10 bg-black/50 rounded-lg flex flex-col gap-10">
+		<h1 class="text-5xl text-center mb-10">Battleship</h1>
+		<div id="player-selection" class="flex justify-around">
+			<div id="human-player" class="bg-white text-black px-4 py-2 rounded-md">Human</div>
+			<div id="computer-player" class="bg-white text-black px-4 py-2 rounded-md">Computer</div>
+		</div>
+		<div id="board-container" class="flex justify-around">
+			<div id="human-board" class="bg-white text-black px-4 py-2 rounded-md">
+				<div id="human-board-grid" class="grid grid-cols-10 grid-rows-10 gap-1">
+					
+				</div>
+			</div>
+			<div id="computer-board" class="bg-white text-black px-4 py-2 rounded-md">
+				<div id="computer-board-grid" class="grid grid-cols-10 grid-rows-10 gap-1"></div>
+			</div>
+		</div>
+		<div id="game-controls" class="flex justify-center">
+			<button id="start-game" class="bg-white text-black px-4 py-2 rounded-md">Start Game</button>
+		</div>
 	</div>
     <script src="index.ts" type="module"></script>
 </body>
