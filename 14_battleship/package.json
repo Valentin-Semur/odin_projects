@@ -5,9 +5,9 @@
 	"module": "src/index.ts",
 	"private": true,
 	"scripts": {
-		"dev": "bun run ./src/template.html",
-		"build": "bun build ./src/template.html --outdir ./dist",
-		"start": "bun run ./dist/template.html",
+		"dev": "bun run ./src/index.html",
+		"build": "bun build ./src/index.html --outdir ./dist",
+		"start": "bun run ./dist/index.html",
 		"test": "bun test",
 		"test:watch": "bun test --watch",
 		"lint": "biome check --write ./src ./tests",
